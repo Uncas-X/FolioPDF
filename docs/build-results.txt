@@ -1,0 +1,22 @@
+[0/1] Planning build
+Building for production...
+[0/6] Write sources
+[1/6] Copying Localizations.json
+[2/6] Write sources
+[3/6] Write swift-version--58304C5D6DBC2206.txt
+[5/7] Compiling FolioCore AssetLibrary.swift
+[6/8] Compiling FolioPDF AppModel.swift
+[6/8] Write Objects.LinkFileList
+[7/8] Linking FolioPDF
+Build complete! (28.74s)
+[0/1] Planning build
+Building for production...
+[0/6] Write sources
+[1/6] Copying Localizations.json
+[3/6] Write swift-version--58304C5D6DBC2206.txt
+[5/7] Compiling FolioCore AssetLibrary.swift
+[6/8] Compiling FolioPDF AppModel.swift
+[6/8] Write Objects.LinkFileList
+[7/8] Linking FolioPDF
+Build complete! (28.34s)
+Built: <project>/dist/FolioPDF.app
