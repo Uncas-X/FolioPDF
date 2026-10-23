@@ -4,13 +4,13 @@
 **简体中文** · [English](docs/readme/README.en.md) · [繁體中文](docs/readme/README.zh-Hant.md) · [日本語](docs/readme/README.ja.md) · [한국어](docs/readme/README.ko.md) · [Français](docs/readme/README.fr.md) · [Deutsch](docs/readme/README.de.md) · [Español](docs/readme/README.es.md) · [Italiano](docs/readme/README.it.md) · [Português (Brasil)](docs/readme/README.pt-BR.md) · [Русский](docs/readme/README.ru.md) · [العربية](docs/readme/README.ar.md) · [हिन्दी](docs/readme/README.hi.md) · [Türkçe](docs/readme/README.tr.md) · [Nederlands](docs/readme/README.nl.md) · [Polski](docs/readme/README.pl.md)
 <!-- languages:end -->
 
-一款原生 macOS 图片制书与 PDF 书签编辑应用。根据 FreePic2Pdf 的产品需求重新实现，采用独立的 SwiftUI 界面设计和 Apple 系统框架，无第三方运行时、无网络上传、无需配置 API Key。
+一款原生 macOS 图片制书与 PDF 书签编辑应用。采用独立的 SwiftUI 界面设计和 Apple 系统框架，无第三方运行时、无网络上传、无需配置 API Key。
 
 ## 使用
 
-从 [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) 下载 `FolioPDF-1.3-macOS.zip`，解压后打开 `FolioPDF.app`，也可将它拖到“应用程序”文件夹。系统要求 **macOS 14 或以上**。本地构建的应用位于 `dist/FolioPDF.app`。
+从 [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) 下载 `FolioPDF-1.4-macOS.zip`，解压后打开 `FolioPDF.app`，也可将它拖到“应用程序”文件夹。系统要求 **macOS 14 或以上**。本地构建的应用位于 `dist/FolioPDF.app`。
 
-1.3 版打包产物为 `FolioPDF-1.3-macOS.zip` 与 `FolioPDF-1.3-source.zip`，ZIP 内的应用始终命名为 `FolioPDF.app`。[验证记录](docs/VALIDATION.md)列出了验证状态、运行环境和实际界面截图。源码仓库不包含构建缓存或应用二进制，安装包在 Releases 中提供。
+1.4 版打包产物为 `FolioPDF-1.4-macOS.zip` 与 `FolioPDF-1.4-source.zip`，ZIP 内的应用始终命名为 `FolioPDF.app`。[验证记录](docs/VALIDATION.md)列出了验证状态、运行环境和实际界面截图。源码仓库不包含构建缓存或应用二进制，安装包在 Releases 中提供。
 
 1. 在“制作 PDF”中添加图片、拖入文件，或添加一个/多个文件夹。文件夹递归选项位于右侧设置中，须在导入前选择。
 2. 单击选择图片，Command 单击多选；拖拽到另一张图片上重新排序，或使用底部前移/后移按钮。双击图片预览。可切换缩略图与列表。
@@ -47,7 +47,7 @@
 
 | 能力 | 实现说明 |
 |---|---|
-| 图像输入 | JPEG、PNG、TIFF、GIF、BMP、HEIC/HEIF、JPEG 2000 等 ImageIO 可解码格式；动态发现当前系统其他支持的扩展名。RAW 支持由本机系统解码器决定，不保证所有相机型号 |
+| 图像输入 | JPEG XL（`.jxl`）、JPEG、PNG、TIFF、GIF、BMP、HEIC/HEIF、JPEG 2000 等 ImageIO 可解码格式；JPEG XL 使用 macOS 14 及以上的原生 ImageIO 解码。动态发现当前系统其他支持的扩展名。RAW 支持由本机系统解码器决定，不保证所有相机型号 |
 | 文件组织 | 去重、文件名/末尾数字排序、手动顺序、常见电子书前缀排序、文件夹递归、是否包括顶级目录 |
 | 批量输出 | 合并一个 PDF、每源文件一个 PDF、每直接父目录一个 PDF；深层目录分别分组，不把后代图片重复计入父目录 |
 | 页面 | 原图大小、固定宽度、A3/A4/A5/B5/Letter/Legal、自定义毫米尺寸、横向、四边距、小图放大、DPI 元数据优先 |
@@ -57,18 +57,20 @@
 | 文档属性 | 标题、作者、主题、关键词；单页/连续/双页阅读布局 |
 | PDF 加密 | 原生 PDFKit AES-128，支持独立打开密码、编辑密码及双密码。只设置打开密码时生成随机 owner 密码；设置编辑密码时以该密码授予 owner 全权限。按所选模式核验锁定状态、密码、reader/owner 权限和页数后才发布；失败不输出未加密替代文件。应用内预览支持输入密码 |
 | 书签 | 自动源文件书签、多级目录、页码、基准页换算、可编辑文本及 JSON、原生 PDF 跳转预览 |
-| 接口兼容 | `FreePic2Pdf.itf` 与 `FreePic2Pdf_bkmk.txt`，UTF-8/UTF-16LE 及相关传统编码；目录/正文分段页码、元数据、追加可搜索文本页、书签显示设置 |
+| 接口兼容 | `.itf` 与 `TXT` 书签接口文件，UTF-8/UTF-16LE 及相关传统编码；目录/正文分段页码、元数据、追加可搜索文本页、书签显示设置 |
 | 稳定性 | 后台任务、逐页释放图像、任务进度、取消、日志、临时文件和原子发布、重名自动编号、批次中途失败保留并列出已完成结果 |
 
-### 与旧版的明确差异
+JPEG XL 支持静态有损、无损、透明和 16 位灰度图的导入、缩略图、预览及 PDF 转换。动画 JXL 仅保证系统可解码的首帧，不保证完整逐帧导入；当前验证环境的 ImageIO 只返回首帧。应用不提供 JXL 编码输出，也不承诺原始 JXL 码流、HDR 或高位深信息在 PDF 中原样保留。
 
-- OCR 使用 Apple Vision，替代 MODI，不需要 Office/Windows，也不沿用旧版图表清理、CJK 字体或逐字/逐行开关。
-- 当前压缩选项为无损与 JPEG；没有复刻 JBIG2、CCITT G4 或 JPEG 2000 编码器。核心功能可用，但黑白大部头的最终体积可能大于专用 JBIG2 工具。
-- 不提供原软件的“显示/隐藏 OCR 文字、物理删除扫描图像”校对工具，也不提供图像修复或完整 PDF 内容编辑器。
+### 当前限制
+
+- OCR 使用 Apple Vision，不需要 Office/Windows；不提供图表清理、CJK 字体或逐字/逐行开关。
+- 当前压缩选项为无损与 JPEG；不提供 JBIG2、CCITT G4 或 JPEG 2000 编码器。黑白大部头的最终体积可能大于专用 JBIG2 工具。
+- 不提供“显示/隐藏 OCR 文字、物理删除扫描图像”校对工具，也不提供图像修复或完整 PDF 内容编辑器。
 - 兼容接口中的 `[Images]` 多图层组装、`MinWidth` 尚未实现；检测到时会显示说明，不会声称已经应用。手动文件顺序若与接口绝对页码不一致，用户须核对目录定位。
 - 普通本地页码、部分标准命名动作与 URL 目标可用。PDFKit 不能可靠保存的外部 PDF 目标、无法解析的命名/特殊目标会被明确标出并阻止静默保存；可在编辑器中改为有效本地页码。JSON/TXT 可保留目标数据。加密 PDF 不提供书签编辑。
 - 加密保留书签、OCR 文字、元数据、阅读布局与普通分段页码。原生 PDFKit 不保留页码标签，本应用仅安全补回不含文字前缀的页码标签；含自定义文字前缀的接口文件会明确阻止加密导出，须去掉前缀或关闭加密。
-- “电子书顺序”实现常见前缀组：cov、bok、leg、fow、!、toc、数字正文、att、ins、bac，其余置后；不声称与旧软件未公开规则完全相同。
+- “电子书顺序”按以下常见前缀组排列：cov、bok、leg、fow、!、toc、数字正文、att、ins、bac，其余置后。
 - 中止或错误时，批次已经生成的 PDF 会保留，当前未完成的临时 PDF 清除；不提供断点续作。
 
 ## 开发与构建
@@ -111,4 +113,4 @@ README 与验证记录均提供与界面一致的 16 种语言，可通过文档
 
 ## 技术依据
 
-使用 Apple 的 [Vision 语言检测接口](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage)、[PDFKit 文档属性](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) 和 [ImageIO JPEG 质量参数](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality)，同时以本机 SDK 声明和实际文件测试验证实现。没有复制原 FreePic2Pdf 程序、图标或旧界面。
+使用 Apple 的 [Vision 语言检测接口](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage)、[PDFKit 文档属性](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) 和 [ImageIO JPEG 质量参数](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality)，同时以本机 SDK 声明和实际文件测试验证实现。界面与图标独立设计，转换功能由 Apple 系统框架实现。

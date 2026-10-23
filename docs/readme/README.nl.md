@@ -4,13 +4,13 @@
 [简体中文](../../README.md) · [English](README.en.md) · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Türkçe](README.tr.md) · **Nederlands** · [Polski](README.pl.md)
 <!-- languages:end -->
 
-Een native macOS-app om van afbeeldingen boeken te maken en PDF-bladwijzers te bewerken. Opnieuw ontwikkeld op basis van de productvereisten van FreePic2Pdf, met een eigen SwiftUI-interface en Apple-systeemframeworks. Geen runtime van derden, geen uploads naar het netwerk en geen API-sleutel nodig.
+FolioPDF is een native macOS-app om van afbeeldingen boeken te maken en PDF-bladwijzers te bewerken. De app gebruikt een zelfstandig ontworpen SwiftUI-interface en Apple-systeemframeworks. Geen runtime van derden, geen uploads naar het netwerk en geen API-sleutel nodig.
 
 ## Gebruik
 
-Download `FolioPDF-1.3-macOS.zip` via [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest), pak het bestand uit en open `FolioPDF.app`. Je kunt de app ook naar de map ‘Apps’ slepen. **macOS 14 of nieuwer** is vereist. Een lokaal gebouwde app staat in `dist/FolioPDF.app`.
+Download `FolioPDF-1.4-macOS.zip` via [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest), pak het bestand uit en open `FolioPDF.app`. Je kunt de app ook naar de map ‘Apps’ slepen. **macOS 14 of nieuwer** is vereist. Een lokaal gebouwde app staat in `dist/FolioPDF.app`.
 
-Versie 1.3 wordt geleverd als `FolioPDF-1.3-macOS.zip` en `FolioPDF-1.3-source.zip`. De app in de ZIP heet altijd `FolioPDF.app`. Het [validatieverslag](../validation/VALIDATION.nl.md) beschrijft de validatiestatus en testomgeving en bevat echte schermafbeeldingen. De broncoderepository bevat geen buildcache of app-binaries; installatiepakketten staan in Releases.
+Versie 1.4 wordt geleverd als `FolioPDF-1.4-macOS.zip` en `FolioPDF-1.4-source.zip`. De app in de ZIP heet altijd `FolioPDF.app`. Het [validatieverslag](../validation/VALIDATION.nl.md) beschrijft de validatiestatus en testomgeving en bevat echte schermafbeeldingen. De broncoderepository bevat geen buildcache of app-binaries; installatiepakketten staan in Releases.
 
 1. Voeg in ‘PDF maken’ afbeeldingen toe, sleep bestanden naar het venster of voeg een of meer mappen toe. Kies vóór het importeren in de instellingen rechts of submappen moeten worden doorzocht.
 2. Klik op een afbeelding om deze te selecteren; gebruik Command-klik voor meerdere afbeeldingen. Sleep een afbeelding op een andere om de volgorde te wijzigen, of gebruik de knoppen voor vooruit/achteruit onderaan. Dubbelklik voor een voorvertoning. Je kunt schakelen tussen miniaturen en een lijst.
@@ -47,7 +47,7 @@ Arabisch gebruikt een interface van rechts naar links. Afbeeldingen en PDF-inhou
 
 | Functie | Implementatie |
 |---|---|
-| Afbeeldingen importeren | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 en andere formaten die ImageIO kan decoderen. Andere door het systeem ondersteunde extensies worden dynamisch ontdekt. RAW-ondersteuning hangt af van de lokale systeemdecoder; niet alle cameramodellen zijn gegarandeerd |
+| Afbeeldingen importeren | JPEG, JPEG XL (`.jxl`), PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 en andere formaten die ImageIO kan decoderen. JPEG XL wordt vanaf macOS 14 door het native ImageIO ondersteund; andere door het systeem ondersteunde extensies worden dynamisch ontdekt. RAW-ondersteuning hangt af van de lokale systeemdecoder; niet alle cameramodellen zijn gegarandeerd |
 | Bestanden organiseren | Duplicaten verwijderen, sorteren op bestandsnaam of laatste getal, handmatige volgorde, sorteren op gangbare e-bookvoorvoegsels, submappen doorzoeken en de hoofdmap wel of niet meenemen |
 | Batchuitvoer | Eén samengevoegde PDF, één PDF per bronbestand of één PDF per directe bovenliggende map. Diepere mappen worden afzonderlijk gegroepeerd; afbeeldingen uit onderliggende mappen worden niet nogmaals bij de bovenliggende map geteld |
 | Pagina’s | Originele afbeeldingsgrootte, vaste breedte, A3/A4/A5/B5/Letter/Legal, aangepaste afmetingen in millimeters, liggend formaat, vier marges, kleine afbeeldingen vergroten en voorrang voor DPI-metadata |
@@ -57,18 +57,20 @@ Arabisch gebruikt een interface van rechts naar links. Afbeeldingen en PDF-inhou
 | Documenteigenschappen | Titel, auteur, onderwerp en trefwoorden; leesindelingen voor één pagina, doorlopend of twee pagina’s |
 | PDF-versleuteling | Native PDFKit AES-128, met onafhankelijk openingswachtwoord, bewerkingswachtwoord of beide. Met alleen een openingswachtwoord wordt een willekeurig owner-wachtwoord gegenereerd. Een ingesteld bewerkingswachtwoord verleent volledige owner-rechten. Publicatie volgt pas na controle van vergrendeling, wachtwoorden, reader-/owner-rechten en paginatal voor de gekozen modus. Bij fouten wordt geen onversleuteld alternatief geëxporteerd. De voorvertoning in de app ondersteunt wachtwoordinvoer |
 | Bladwijzers | Automatische bronbestandbladwijzers, geneste inhoudsopgaven, paginanummers, omrekening met een basispagina, bewerkbare tekst en JSON, en native PDF-voorvertoning van bestemmingen |
-| Interfacecompatibiliteit | `FreePic2Pdf.itf` en `FreePic2Pdf_bkmk.txt`, UTF-8/UTF-16LE en relevante oudere coderingen; afzonderlijke paginanummering voor inhoudsopgave en hoofdtekst, metadata, toevoegen van doorzoekbare tekstpagina’s en weergave-instellingen voor bladwijzers |
+| Bladwijzerinterfacebestanden | Algemene ITF-bestanden (`.itf`) en `TXT`, UTF-8/UTF-16LE en relevante oudere coderingen; afzonderlijke paginanummering voor inhoudsopgave en hoofdtekst, metadata, toevoegen van doorzoekbare tekstpagina’s en weergave-instellingen voor bladwijzers |
 | Stabiliteit | Achtergrondtaken, vrijgeven van afbeeldingen per pagina, voortgang, annuleren, logs, tijdelijke bestanden en atomair publiceren, automatische nummering bij naamconflicten, en behoud en opsomming van voltooide resultaten als een batch tussentijds mislukt |
 
-### Expliciete verschillen met de oude versie
+JPEG XL ondersteunt import, miniaturen, voorvertoning en PDF-conversie van statische afbeeldingen met of zonder kwaliteitsverlies, transparantie en 16-bits grijstinten. Bij geanimeerde JXL wordt alleen het eerste door het systeem decodeerbare frame gegarandeerd, niet de volledige import van alle frames. ImageIO geeft in de geteste omgeving alleen het eerste frame terug. De app biedt geen JXL-codering als uitvoer en garandeert niet dat de oorspronkelijke JXL-datastroom, HDR of informatie met een hoge bitdiepte ongewijzigd in de PDF behouden blijft.
 
-- OCR gebruikt Apple Vision in plaats van MODI. Office of Windows is niet nodig. De oude opties voor het opruimen van diagrammen, CJK-lettertypen en herkenning per teken of regel zijn niet overgenomen.
-- De huidige compressieopties zijn verliesloos en JPEG. JBIG2-, CCITT G4- en JPEG 2000-encoders zijn niet opnieuw geïmplementeerd. De kernfuncties werken, maar omvangrijke zwart-witboeken kunnen groter uitvallen dan met gespecialiseerde JBIG2-tools.
-- De oude correctietools om OCR-tekst te tonen/verbergen of scanbeelden fysiek te verwijderen ontbreken. Er is ook geen beeldherstel of volledige editor voor PDF-inhoud.
+### Huidige beperkingen
+
+- OCR gebruikt Apple Vision. Office of Windows is niet nodig. Opties voor het opruimen van diagrammen, het instellen van CJK-lettertypen en herkenning per teken of regel ontbreken.
+- De huidige compressieopties zijn verliesloos en JPEG. JBIG2-, CCITT G4- en JPEG 2000-encoders zijn niet beschikbaar. De kernfuncties werken, maar omvangrijke zwart-witboeken kunnen groter uitvallen dan met gespecialiseerde JBIG2-tools.
+- Correctietools om OCR-tekst te tonen/verbergen of scanbeelden fysiek te verwijderen ontbreken. Er is ook geen beeldherstel of volledige editor voor PDF-inhoud.
 - De meerlaagse samenstelling via `[Images]` en `MinWidth` in compatibele interfacebestanden zijn nog niet geïmplementeerd. Bij detectie volgt een melding; de app beweert niet dat ze zijn toegepast. Als de handmatige bestandsvolgorde niet overeenkomt met absolute paginanummers uit het interfacebestand, moet de gebruiker de bladwijzerbestemmingen controleren.
 - Gewone lokale paginanummers, sommige standaard benoemde acties en URL-bestemmingen werken. Externe PDF-bestemmingen die PDFKit niet betrouwbaar kan opslaan en niet-oplosbare benoemde of speciale bestemmingen worden expliciet gemarkeerd en niet stilzwijgend opgeslagen. Je kunt ze in de editor vervangen door geldige lokale paginanummers. JSON/TXT kunnen bestemmingsgegevens bewaren. Versleutelde PDF’s kunnen niet op bladwijzers worden bewerkt.
 - Versleuteling behoudt bladwijzers, OCR-tekst, metadata, leesindeling en gewone paginanummering in secties. Native PDFKit behoudt geen paginalabels; de app herstelt alleen labels zonder tekstvoorvoegsels op een veilige manier. Interfacebestanden met aangepaste tekstvoorvoegsels blokkeren versleutelde export expliciet. Verwijder de voorvoegsels of schakel versleuteling uit.
-- ‘E-bookvolgorde’ gebruikt de gangbare groepen cov, bok, leg, fow, !, toc, numerieke hoofdtekst, att, ins en bac; de overige komen daarna. Er wordt niet beweerd dat dit exact overeenkomt met de niet-gepubliceerde regels van de oude software.
+- ‘E-bookvolgorde’ gebruikt de gangbare groepen cov, bok, leg, fow, !, toc, numerieke hoofdtekst, att, ins en bac; de overige komen daarna. Controleer bij andere naamgevingsregels de volgorde en pas die zo nodig handmatig aan.
 - Bij annuleren of een fout blijven al gemaakte PDF’s uit de batch behouden. De nog onvoltooide tijdelijke PDF wordt verwijderd. Hervatten vanaf een onderbrekingspunt wordt niet ondersteund.
 
 ## Ontwikkeling en bouwen
@@ -107,8 +109,8 @@ dist/                   Uitvoerbare .app en distributie-ZIP’s (gegenereerd bij
 
 ## Documentatietalen
 
-De README en het validatieverslag zijn beschikbaar in dezelfde 16 talen als de interface. Wissel via de taallinks bovenaan de documenten. Functies, wachtwoordlimieten, bekende verschillen en bouwstappen zijn in alle taalversies gelijk. Test-, build- en vensterscreenshotlogs zijn machinaal gegenereerd bronmateriaal en behouden de oorspronkelijke tooluitvoer. Het validatieverslag biedt de toelichtingen in meerdere talen.
+De README en het validatieverslag zijn beschikbaar in dezelfde 16 talen als de interface. Wissel via de taallinks bovenaan de documenten. Functies, wachtwoordlimieten, huidige beperkingen en bouwstappen zijn in alle taalversies gelijk. Test-, build- en vensterscreenshotlogs zijn machinaal gegenereerd bronmateriaal en behouden de oorspronkelijke tooluitvoer. Het validatieverslag biedt de toelichtingen in meerdere talen.
 
 ## Technische basis
 
-Gebruikt Apples [Vision-interface voor taaldetectie](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit-documenteigenschappen](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) en [ImageIO-parameter voor JPEG-kwaliteit](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality). De implementatie is daarnaast gecontroleerd aan de hand van lokale SDK-declaraties en tests met echte bestanden. Het oorspronkelijke FreePic2Pdf-programma, de pictogrammen en de oude interface zijn niet gekopieerd.
+Gebruikt Apples [Vision-interface voor taaldetectie](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit-documenteigenschappen](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) en [ImageIO-parameter voor JPEG-kwaliteit](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality). De implementatie is daarnaast gecontroleerd aan de hand van lokale SDK-declaraties en tests met echte bestanden. FolioPDF combineert een zelfstandig ontworpen SwiftUI-interface met de native systeemframeworks van Apple.

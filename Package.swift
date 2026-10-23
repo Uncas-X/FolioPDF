@@ -9,7 +9,7 @@ let package = Package(
     targets: [
         .target(name: "FolioCore"),
         .executableTarget(name: "FolioPDF", dependencies: ["FolioCore"], resources: [.process("Resources")]),
-        .testTarget(name: "FolioCoreTests", dependencies: ["FolioCore"]),
+        .testTarget(name: "FolioCoreTests", dependencies: ["FolioCore"], resources: [.copy("Fixtures")]),
         .testTarget(name: "FolioPDFTests", dependencies: ["FolioPDF"])
     ]
 )

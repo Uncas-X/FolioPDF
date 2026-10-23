@@ -87,7 +87,7 @@ final class AppModel: ObservableObject {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = true
         panel.canChooseDirectories = false
-        panel.allowedContentTypes = [.image]
+        panel.allowedContentTypes = ImagePipeline.importContentTypes
         panel.prompt = L("Add images")
         if panel.runModal() == .OK { importURLs(panel.urls) }
     }

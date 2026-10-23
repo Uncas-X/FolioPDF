@@ -72,6 +72,10 @@ def main():
                 errors.append(f"Missing edition: {label}")
                 continue
             text = path.read_text()
+            if re.search(r"freepic2pdf", text, re.I):
+                errors.append(f"Removed product reference remains: {label}")
+            if kind == "readme" and ("JPEG XL" not in text or "`.jxl`" not in text):
+                errors.append(f"Missing JPEG XL input documentation: {label}")
             expected = navigation(kind, code, path)
             if update:
                 text = re.sub(re.escape(BEGIN) + r".*?" + re.escape(END) + r"\n*", "", text, flags=re.S)

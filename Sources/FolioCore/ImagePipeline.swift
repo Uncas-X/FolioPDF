@@ -22,6 +22,17 @@ public enum ConversionError: LocalizedError {
 }
 
 public enum ImagePipeline {
+    // ImageIO decodes JPEG XL on macOS 14+, but the named UTType.jpegXL API requires
+    // macOS 15.2. The identifier is available without raising our deployment target.
+    private static let jpegXLIdentifier = "public.jpeg-xl"
+
+    /// Explicit extension lookup also works when LaunchServices has no filename tags
+    /// for its declared JPEG XL type (for example in a headless test process).
+    public static var importContentTypes: [UTType] {
+        let jpegXL = UTType(filenameExtension: "jxl", conformingTo: .image) ?? UTType(jpegXLIdentifier)
+        return [.image] + (jpegXL.map { [$0] } ?? [])
+    }
+
     /// ImageIO's supported formats on this Mac, rather than a hard-coded promise about RAW codecs.
     public static var supportedExtensions: Set<String> {
         let identifiers = CGImageSourceCopyTypeIdentifiers() as! [String]
@@ -31,6 +42,9 @@ public enum ImagePipeline {
         let baseline: Set<String> = ["jpg", "jpeg", "png", "tif", "tiff", "gif", "bmp", "dib",
                                      "heic", "heif", "jp2", "j2k", "jpc", "jpf", "jpx", "j2c", "ico", "icns"]
         return identifiers.reduce(into: baseline) { extensions, identifier in
+            // The codec advertises its UTI even when UTType.tags is empty. Do not
+            // advertise the extension on a system without the native decoder.
+            if identifier == jpegXLIdentifier { extensions.insert("jxl") }
             if let type = UTType(identifier) {
                 extensions.formUnion(type.tags[.filenameExtension, default: []].map { $0.lowercased() })
             }
@@ -66,7 +80,7 @@ public enum ImagePipeline {
 
     static func frame(at index: Int, of url: URL) throws -> (image: CGImage, dpi: Double?) {
         guard let source = CGImageSourceCreateWithURL(url as CFURL, [kCGImageSourceShouldCache: false] as CFDictionary),
-              index < CGImageSourceGetCount(source) else { throw ConversionError.unreadableImage(url.lastPathComponent) }
+              index >= 0, index < CGImageSourceGetCount(source) else { throw ConversionError.unreadableImage(url.lastPathComponent) }
         let properties = CGImageSourceCopyPropertiesAtIndex(source, index, nil) as? [CFString: Any] ?? [:]
         let width = (properties[kCGImagePropertyPixelWidth] as? NSNumber)?.intValue ?? 0
         let height = (properties[kCGImagePropertyPixelHeight] as? NSNumber)?.intValue ?? 0

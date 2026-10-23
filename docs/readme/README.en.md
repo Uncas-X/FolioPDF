@@ -4,13 +4,13 @@
 [简体中文](../../README.md) · **English** · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Türkçe](README.tr.md) · [Nederlands](README.nl.md) · [Polski](README.pl.md)
 <!-- languages:end -->
 
-A native macOS application for turning images into books and editing PDF bookmarks. Reimplemented from the FreePic2Pdf product requirements, it uses an independently designed SwiftUI interface and Apple system frameworks, with no third-party runtime, no network uploads, and no API Key configuration.
+A native macOS application for turning images into books and editing PDF bookmarks. FolioPDF uses an independently designed SwiftUI interface and Apple system frameworks, with no third-party runtime, no network uploads, and no API Key configuration.
 
 ## Getting started
 
-Download `FolioPDF-1.3-macOS.zip` from [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest), extract it, and open `FolioPDF.app`. You can also drag it into the Applications folder. Requires **macOS 14 or later**. A locally built application is available at `dist/FolioPDF.app`.
+Download `FolioPDF-1.4-macOS.zip` from [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest), extract it, and open `FolioPDF.app`. You can also drag it into the Applications folder. Requires **macOS 14 or later**. A locally built application is available at `dist/FolioPDF.app`.
 
-The 1.3 release packages are `FolioPDF-1.3-macOS.zip` and `FolioPDF-1.3-source.zip`; the application inside the ZIP is always named `FolioPDF.app`. The [validation report](../validation/VALIDATION.en.md) lists the verification status, runtime environment, and actual interface screenshots. The source repository does not contain build caches or application binaries; installation packages are provided in Releases.
+The 1.4 release packages are `FolioPDF-1.4-macOS.zip` and `FolioPDF-1.4-source.zip`; the application inside the ZIP is always named `FolioPDF.app`. The [validation report](../validation/VALIDATION.en.md) lists the verification status, runtime environment, and actual interface screenshots. The source repository does not contain build caches or application binaries; installation packages are provided in Releases.
 
 1. In “Create PDF,” add images, drag in files, or add one or more folders. Choose the folder recursion options in the settings on the right before importing.
 2. Click to select an image, or Command-click to select several. Drag an image onto another to reorder it, or use the move-forward/move-backward buttons at the bottom. Double-click an image to preview it. Thumbnail and list views are available.
@@ -47,7 +47,7 @@ Arabic uses a right-to-left interface layout. Images and PDF content remain unch
 
 | Capability | Implementation |
 |---|---|
-| Image input | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000, and other formats decodable by ImageIO. Additional supported extensions are discovered dynamically on the current system. RAW support depends on the local system decoder; not all camera models are guaranteed |
+| Image input | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000, JPEG XL (`.jxl`), and other formats decodable by ImageIO. JPEG XL uses native ImageIO decoding on macOS 14 or later. Additional supported extensions are discovered dynamically on the current system. RAW support depends on the local system decoder; not all camera models are guaranteed |
 | File organization | Deduplication, filename/trailing-number sorting, manual order, common ebook-prefix sorting, folder recursion, and optional inclusion of the top-level directory |
 | Batch output | One combined PDF, one PDF per source file, or one PDF per immediate parent directory. Deeper directories form separate groups; descendant images are not counted again in their parent directory |
 | Pages | Original image size, fixed width, A3/A4/A5/B5/Letter/Legal, custom dimensions in millimeters, landscape orientation, four margins, enlargement of small images, and priority for image DPI metadata |
@@ -57,18 +57,20 @@ Arabic uses a right-to-left interface layout. Images and PDF content remain unch
 | Document properties | Title, author, subject, keywords, and single-page/continuous/two-page reading layouts |
 | PDF encryption | Native PDFKit AES-128 with independent opening-password, editing-password, and dual-password modes. Opening-password-only mode generates a random owner password; an editing password grants full owner permissions. Files are published only after mode-specific checks of lock state, passwords, reader/owner permissions, and page count. Failures never produce an unencrypted substitute. In-app preview accepts passwords |
 | Bookmarks | Automatic source-file bookmarks, multilevel outlines, page numbers, base-page conversion, editable text and JSON, and native PDF destination previews |
-| Interface compatibility | `FreePic2Pdf.itf` and `FreePic2Pdf_bkmk.txt`, UTF-8/UTF-16LE and relevant legacy encodings, segmented page numbering for contents/body text, metadata, appended searchable text pages, and bookmark display settings |
+| Bookmark interface files | Generic ITF (`.itf`) and `TXT` bookmark interface files, UTF-8/UTF-16LE and relevant legacy encodings, segmented page numbering for contents/body text, metadata, appended searchable text pages, and bookmark display settings |
 | Reliability | Background tasks, per-page image release, progress, cancellation, logs, temporary files and atomic publication, automatic numbering for name conflicts, and preservation and listing of completed outputs when a batch fails partway through |
 
-### Explicit differences from the original application
+JPEG XL supports importing static lossy, lossless, transparent, and 16-bit grayscale images, generating thumbnails, previewing them, and converting them to PDF. For animated JXL, only the first frame decodable by the system is guaranteed; full frame-by-frame import is not guaranteed. ImageIO in the current validation environment returns only the first frame. The application does not encode JXL output and does not promise to preserve the original JXL bitstream, HDR, or high-bit-depth information unchanged in the PDF.
 
-- OCR uses Apple Vision instead of MODI. Office/Windows is not required, and the original chart-cleanup, CJK-font, and word-by-word/line-by-line switches are not carried over.
-- Compression currently offers lossless and JPEG options. JBIG2, CCITT G4, and JPEG 2000 encoders have not been recreated. The core workflow is available, but large black-and-white books may produce larger files than dedicated JBIG2 tools.
-- The original proofreading tools for showing/hiding OCR text and physically deleting scanned images are not included. Neither image restoration nor a full PDF content editor is provided.
+### Current limitations
+
+- OCR uses local Apple Vision and does not require Office or Windows. Chart cleanup, dedicated CJK-font controls, and word-by-word/line-by-line switches are not available.
+- Compression currently offers lossless and JPEG options. JBIG2, CCITT G4, and JPEG 2000 encoding is not available. The core workflow is available, but large black-and-white books may produce larger files than dedicated JBIG2 tools.
+- Proofreading tools for showing/hiding OCR text and physically deleting scanned images are not included. Neither image restoration nor a full PDF content editor is provided.
 - `[Images]` multilayer assembly and `MinWidth` in compatible interface files are not implemented. They are reported when detected, without claiming that they were applied. If manual file order differs from absolute page numbers in an interface file, users must verify bookmark destinations.
 - Ordinary local page numbers, some standard named actions, and URL destinations are supported. External PDF destinations that PDFKit cannot reliably save, and unresolved named/special destinations, are clearly flagged and prevent silent saving. They can be changed to valid local page numbers in the editor. JSON/TXT can preserve destination data. Bookmark editing is unavailable for encrypted PDFs.
 - Encryption preserves bookmarks, OCR text, metadata, reading layouts, and ordinary segmented page numbers. Native PDFKit does not retain page labels, so the application safely restores only labels without text prefixes. Interface files with custom text prefixes explicitly block encrypted export; remove the prefixes or turn off encryption.
-- “Ebook order” implements common prefix groups: cov, bok, leg, fow, !, toc, numbered body text, att, ins, bac, followed by everything else. It does not claim exact equivalence with the original application's unpublished rules.
+- “Ebook order” uses common prefix groups: cov, bok, leg, fow, !, toc, numbered body text, att, ins, bac, followed by everything else.
 - If a batch is cancelled or fails, completed PDFs remain available and the current unfinished temporary PDF is removed. Resuming from a checkpoint is not supported.
 
 ## Development and building
@@ -107,8 +109,8 @@ dist/                   Runnable .app and distribution ZIPs (generated by builds
 
 ## Documentation languages
 
-The README and validation report are available in the same 16 languages as the interface. Use the language links at the top of each document to switch. Features, password limits, known differences, and build steps are consistent across language versions. Test, build, and window-capture logs are machine-generated original evidence and retain their tools' original output; the validation reports provide multilingual explanations.
+The README and validation report are available in the same 16 languages as the interface. Use the language links at the top of each document to switch. Features, password limits, known limitations, and build steps are consistent across language versions. Test, build, and window-capture logs are machine-generated original evidence and retain their tools' original output; the validation reports provide multilingual explanations.
 
 ## Technical references
 
-The implementation uses Apple's [Vision language-detection API](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit document attributes](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes), and [ImageIO JPEG quality parameter](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality), with local SDK declarations and actual file tests used to verify behavior. The original FreePic2Pdf program, icons, and interface have not been copied.
+The implementation uses Apple's [Vision language-detection API](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit document attributes](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes), and [ImageIO JPEG quality parameter](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality), with local SDK declarations and actual file tests used to verify behavior. FolioPDF combines an independently designed interface with native system frameworks.

@@ -4,13 +4,13 @@
 [简体中文](../../README.md) · [English](README.en.md) · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · **Italiano** · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Türkçe](README.tr.md) · [Nederlands](README.nl.md) · [Polski](README.pl.md)
 <!-- languages:end -->
 
-Un'app nativa per macOS che crea libri PDF da immagini e modifica i segnalibri PDF. Reimplementa i requisiti di FreePic2Pdf con un'interfaccia SwiftUI progettata in modo indipendente e i framework di sistema Apple. Non richiede runtime di terze parti, non carica file in rete e non necessita di una chiave API.
+FolioPDF è un'app nativa per macOS che crea libri PDF da immagini e modifica i segnalibri PDF. Usa un'interfaccia SwiftUI progettata in modo indipendente e i framework di sistema Apple. Non richiede runtime di terze parti, non carica file in rete e non necessita di una chiave API.
 
 ## Utilizzo
 
-Scarica `FolioPDF-1.3-macOS.zip` da [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest), estrai l'archivio e apri `FolioPDF.app`. Puoi anche trascinare l'app nella cartella Applicazioni. È necessario **macOS 14 o successivo**. L'app compilata localmente si trova in `dist/FolioPDF.app`.
+Scarica `FolioPDF-1.4-macOS.zip` da [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest), estrai l'archivio e apri `FolioPDF.app`. Puoi anche trascinare l'app nella cartella Applicazioni. È necessario **macOS 14 o successivo**. L'app compilata localmente si trova in `dist/FolioPDF.app`.
 
-I pacchetti della versione 1.3 sono `FolioPDF-1.3-macOS.zip` e `FolioPDF-1.3-source.zip`; l'app contenuta nello ZIP si chiama sempre `FolioPDF.app`. Il [rapporto di verifica](../validation/VALIDATION.it.md) riporta lo stato dei controlli, l'ambiente di esecuzione e le schermate dell'interfaccia reale. Il repository sorgente non contiene cache di compilazione né binari dell'app; i pacchetti di installazione sono disponibili nelle Releases.
+I pacchetti della versione 1.4 sono `FolioPDF-1.4-macOS.zip` e `FolioPDF-1.4-source.zip`; l'app contenuta nello ZIP si chiama sempre `FolioPDF.app`. Il [rapporto di verifica](../validation/VALIDATION.it.md) riporta lo stato dei controlli, l'ambiente di esecuzione e le schermate dell'interfaccia reale. Il repository sorgente non contiene cache di compilazione né binari dell'app; i pacchetti di installazione sono disponibili nelle Releases.
 
 1. In «Crea PDF», aggiungi immagini, trascina file oppure aggiungi una o più cartelle. La ricerca ricorsiva nelle cartelle va impostata nel pannello destro prima dell'importazione.
 2. Fai clic per selezionare un'immagine e Command-clic per selezionarne più di una. Trascina un'immagine sopra un'altra per riordinarle oppure usa i pulsanti inferiori per spostarle avanti e indietro. Il doppio clic apre l'anteprima. Puoi passare dalla vista miniature all'elenco.
@@ -47,7 +47,7 @@ L'arabo usa una disposizione da destra a sinistra. Immagini e contenuti PDF rest
 
 | Funzione | Implementazione |
 |---|---|
-| Immagini in ingresso | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 e altri formati decodificabili da ImageIO; rilevamento dinamico delle altre estensioni supportate dal sistema. Il supporto RAW dipende dal decoder locale e non è garantito per ogni modello di fotocamera |
+| Immagini in ingresso | JPEG, JPEG XL (`.jxl`), PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 e altri formati decodificabili da ImageIO. JPEG XL è supportato nativamente da ImageIO su macOS 14 e successivi; le altre estensioni supportate dal sistema sono rilevate dinamicamente. Il supporto RAW dipende dal decoder locale e non è garantito per ogni modello di fotocamera |
 | Organizzazione dei file | Deduplicazione, ordine per nome o numero finale, ordine manuale, prefissi comuni degli e-book, ricorsione nelle cartelle e inclusione facoltativa della cartella superiore |
 | Esportazione in blocco | Un PDF unico, uno per file sorgente o uno per cartella immediatamente superiore. Le cartelle più profonde sono raggruppate separatamente; le loro immagini non vengono ricontate nella cartella superiore |
 | Pagine | Dimensioni originali, larghezza fissa, A3/A4/A5/B5/Letter/Legal, dimensioni personalizzate in millimetri, orizzontale, quattro margini, ingrandimento delle immagini piccole e priorità ai metadati DPI |
@@ -57,18 +57,20 @@ L'arabo usa una disposizione da destra a sinistra. Immagini e contenuti PDF rest
 | Proprietà del documento | Titolo, autore, oggetto e parole chiave; lettura a pagina singola, continua o su due pagine |
 | Crittografia PDF | AES-128 nativo di PDFKit con password di apertura, di modifica o entrambe. Con la sola password di apertura viene generata una password owner casuale; quando è impostata quella di modifica, essa concede pieni permessi owner. Il file viene pubblicato solo dopo aver verificato blocco, password, permessi reader/owner e numero di pagine secondo la modalità. Un errore non produce una copia sostitutiva non crittografata. L'anteprima interna consente di inserire la password |
 | Segnalibri | Segnalibri automatici per file sorgente, indice multilivello, numeri di pagina, conversione della pagina base, testo modificabile e JSON, anteprima nativa delle destinazioni PDF |
-| Compatibilità di interfaccia | `FreePic2Pdf.itf` e `FreePic2Pdf_bkmk.txt`, UTF-8/UTF-16LE e relative codifiche precedenti; numerazione separata per indice e testo principale, metadati, aggiunta di pagine di testo ricercabili e impostazioni di visualizzazione dei segnalibri |
+| File di interfaccia per segnalibri | File generici ITF (`.itf`) e `TXT`, UTF-8/UTF-16LE e relative codifiche precedenti; numerazione separata per indice e testo principale, metadati, aggiunta di pagine di testo ricercabili e impostazioni di visualizzazione dei segnalibri |
 | Affidabilità | Attività in background, rilascio delle immagini pagina per pagina, avanzamento, annullamento, log, file temporanei e pubblicazione atomica, numerazione automatica dei nomi duplicati e conservazione con elenco dei risultati già completati in caso di errore nel lotto |
 
-### Differenze esplicite rispetto al programma originale
+JPEG XL supporta importazione, miniature, anteprima e conversione PDF di immagini statiche con perdita, senza perdita, trasparenti e in scala di grigi a 16 bit. Per i JXL animati è garantito soltanto il primo fotogramma decodificabile dal sistema, non l’importazione completa fotogramma per fotogramma; ImageIO nell’ambiente verificato restituisce soltanto il primo fotogramma. L’app non offre codifica in uscita JXL e non garantisce la conservazione inalterata nel PDF del flusso JXL originale, dell’HDR o delle informazioni ad alta profondità di bit.
 
-- OCR usa Apple Vision al posto di MODI e non richiede Office o Windows. Non riproduce la pulizia dei grafici, i font CJK o gli interruttori per parola/riga del programma originale.
-- Le opzioni di compressione sono senza perdita e JPEG; non sono stati riprodotti gli encoder JBIG2, CCITT G4 o JPEG 2000. Le funzioni principali sono disponibili, ma i grandi libri in bianco e nero possono occupare più spazio rispetto a strumenti JBIG2 specializzati.
-- Non sono disponibili gli strumenti originali per mostrare/nascondere il testo OCR o eliminare fisicamente le immagini scansionate. Non sono inclusi neppure restauro delle immagini o un editor completo dei contenuti PDF.
+### Limiti attuali
+
+- OCR usa Apple Vision e non richiede Office o Windows. Non offre pulizia dei grafici, configurazione di font CJK o interruttori di riconoscimento per carattere/riga.
+- Le opzioni di compressione sono senza perdita e JPEG; non sono disponibili encoder JBIG2, CCITT G4 o JPEG 2000. Le funzioni principali sono disponibili, ma i grandi libri in bianco e nero possono occupare più spazio rispetto a strumenti JBIG2 specializzati.
+- Non sono disponibili strumenti di revisione per mostrare/nascondere il testo OCR o eliminare fisicamente le immagini scansionate. Non sono inclusi neppure restauro delle immagini o un editor completo dei contenuti PDF.
 - La composizione multistrato `[Images]` e `MinWidth` dell'interfaccia compatibile non sono ancora implementati. Se rilevati, vengono segnalati senza affermare che siano stati applicati. Se l'ordine manuale dei file non coincide con le pagine assolute dell'interfaccia, occorre controllare le destinazioni dell'indice.
 - Sono supportate normali pagine locali, alcune azioni standard con nome e destinazioni URL. Le destinazioni PDF esterne che PDFKit non può salvare affidabilmente e quelle speciali o con nome non risolte vengono indicate esplicitamente, impedendo un salvataggio silenzioso. Nell'editor possono essere sostituite con pagine locali valide. JSON/TXT possono conservare i dati delle destinazioni. I segnalibri dei PDF crittografati non sono modificabili.
 - La crittografia conserva segnalibri, testo OCR, metadati, disposizione di lettura e normale numerazione per sezioni. PDFKit nativo non conserva le etichette delle pagine; l'app ripristina in sicurezza soltanto quelle prive di prefissi di testo. I file di interfaccia con prefissi personalizzati bloccano esplicitamente l'esportazione crittografata: rimuovi i prefissi o disattiva la crittografia.
-- L'ordine e-book usa i gruppi di prefissi comuni cov, bok, leg, fow, !, toc, corpo numerico, att, ins e bac, seguiti dagli altri. Non dichiara una corrispondenza completa con le regole non pubblicate del programma originale.
+- L'ordine e-book usa i gruppi di prefissi comuni cov, bok, leg, fow, !, toc, corpo numerico, att, ins e bac, seguiti dagli altri. Con convenzioni di denominazione diverse, verifica e correggi manualmente l'ordine.
 - In caso di annullamento o errore, i PDF del lotto già generati vengono conservati e il PDF temporaneo incompleto viene eliminato. Non è prevista la ripresa da un punto di interruzione.
 
 ## Sviluppo e compilazione
@@ -107,8 +109,8 @@ dist/                   .app eseguibile e ZIP di distribuzione (generati dalla c
 
 ## Lingue della documentazione
 
-README e rapporto di verifica sono disponibili nelle stesse 16 lingue dell'interfaccia. Usa i collegamenti linguistici in cima al documento per cambiare versione. Descrizioni delle funzioni, limiti delle password, differenze note e istruzioni di compilazione sono coerenti fra le lingue. I log di test, compilazione e acquisizione delle schermate sono prove originali generate dagli strumenti e mantengono la lingua originale. Le relative spiegazioni sono tradotte nel rapporto di verifica.
+README e rapporto di verifica sono disponibili nelle stesse 16 lingue dell'interfaccia. Usa i collegamenti linguistici in cima al documento per cambiare versione. Descrizioni delle funzioni, limiti delle password, limiti attuali e istruzioni di compilazione sono coerenti fra le lingue. I log di test, compilazione e acquisizione delle schermate sono prove originali generate dagli strumenti e mantengono la lingua originale. Le relative spiegazioni sono tradotte nel rapporto di verifica.
 
 ## Riferimenti tecnici
 
-L'app usa l'[interfaccia di rilevamento della lingua di Vision](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), gli [attributi dei documenti PDFKit](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) e il [parametro di qualità JPEG di ImageIO](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality) di Apple. L'implementazione viene verificata anche con le dichiarazioni dell'SDK locale e test su file reali. Il programma FreePic2Pdf originale, le sue icone e la sua interfaccia non sono stati copiati.
+L'app usa l'[interfaccia di rilevamento della lingua di Vision](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), gli [attributi dei documenti PDFKit](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) e il [parametro di qualità JPEG di ImageIO](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality) di Apple. L'implementazione viene verificata anche con le dichiarazioni dell'SDK locale e test su file reali. FolioPDF combina un'interfaccia SwiftUI indipendente con i framework nativi del sistema Apple.

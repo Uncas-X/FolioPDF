@@ -1,4 +1,4 @@
-# FolioPDF 1.3 驗證記錄
+# FolioPDF 1.4 驗證記錄
 
 <!-- languages:start -->
 [简体中文](../VALIDATION.md) · [English](VALIDATION.en.md) · **繁體中文** · [日本語](VALIDATION.ja.md) · [한국어](VALIDATION.ko.md) · [Français](VALIDATION.fr.md) · [Deutsch](VALIDATION.de.md) · [Español](VALIDATION.es.md) · [Italiano](VALIDATION.it.md) · [Português (Brasil)](VALIDATION.pt-BR.md) · [Русский](VALIDATION.ru.md) · [العربية](VALIDATION.ar.md) · [हिन्दी](VALIDATION.hi.md) · [Türkçe](VALIDATION.tr.md) · [Nederlands](VALIDATION.nl.md) · [Polski](VALIDATION.pl.md)
@@ -6,23 +6,24 @@
 
 狀態：**測試與建置通過**。記錄日期：2026-10-23。驗證環境：Intel Mac、macOS 15.7.9、Swift 6.2.4 / Xcode。最低部署版本 macOS 14。
 
-本次增加獨立開啟密碼與編輯密碼，並將加密設定改為右側面板內預設折疊、整行可點選的區域。本次完整執行 50 項 XCTest，全部通過，0 失敗、0 略過。已確認本機原生 PDF 寫入 API 在開啟密碼為 17–31 字元時可能使 owner 密碼失效；應用程式透過雙密碼模式的長度預檢規避此問題，相關安全邊界見下文。本次記錄見 `test-results.txt`。
+本版本透過 macOS 14 或以上版本的原生 ImageIO 支援 JPEG XL 輸入，並支援獨立開啟密碼與編輯密碼。加密設定位於右側面板內預設折疊、整行可點選的區域。本次完整執行 58 項 XCTest，全部通過，0 失敗、0 略過。已確認本機原生 PDF 寫入 API 在開啟密碼為 17–31 字元時可能使 owner 密碼失效；應用程式透過雙密碼模式的長度預檢規避此問題，相關安全邊界見下文。本次記錄見 `test-results.txt`。
 
 ## 交付物
 
 - `dist/FolioPDF.app`：原生 AppKit 視窗、SwiftUI 介面、系統 PDFKit / Vision / ImageIO。應用程式檔名不帶版本編號，版本記錄在應用程式中繼資料內。
-- `dist/FolioPDF-1.3-macOS.zip`：包含 x86_64 與 arm64 的通用應用程式包，已用 `lipo -archs` 核驗。
-- `dist/FolioPDF-1.3-source.zip`：可在 Xcode 開啟的 Swift Package 原始碼，包含測試、指令稿、使用說明和介面截圖。
-- 封裝指令稿使用本機 ad-hoc 簽名，`codesign --verify --deep --strict` 通過；不包含 Developer ID 公證。內部版本為 1.3（build 4），應用程式檔名仍為 `FolioPDF.app`。
+- `dist/FolioPDF-1.4-macOS.zip`：包含 x86_64 與 arm64 的通用應用程式包，已用 `lipo -archs` 核驗。
+- `dist/FolioPDF-1.4-source.zip`：可在 Xcode 開啟的 Swift Package 原始碼，包含測試、指令稿、使用說明和介面截圖。
+- 封裝指令稿使用本機 ad-hoc 簽名，`codesign --verify --deep --strict` 通過；不包含 Developer ID 公證。內部版本為 1.4（build 5），應用程式檔名仍為 `FolioPDF.app`。
 
 ## 功能測試
 
-已執行 `bash scripts/test.sh`，50 項 XCTest 全部通過，詳細輸出儲存在 `test-results.txt`。實際 Vision OCR 測試也已執行，無略過。
+已執行 `bash scripts/test.sh`，58 項 XCTest 全部通過，詳細輸出儲存在 `test-results.txt`。實際 Vision OCR 測試也已執行，無略過。
 
 | 範圍 | 數量 | 驗證內容 |
 |---|---:|---|
 | 素材發現與排序 | 3 | 數字排序、電子書前綴、子目錄與最上層排除、重複路徑 |
 | PDF 轉換 | 10 | 頁面幾何和非法參數、EXIF 方向、多頁 TIFF/GIF、中繼資料和書籤、逐目錄分組、不覆蓋檔案、批次部分失敗、真實 JPEG 編碼、原 JPEG 編碼串流保留、Vision 隱藏文字及可搜尋性、取消清理 |
+| JPEG XL 輸入 | 8 | 原生類型及副檔名對應、資料夾探索、有損/無損 RGB、RGBA 透明、16 位元灰階、縮圖及預覽、PDF 尺寸及渲染、透明/白底輸出、動畫依系統可見影格輸出、拒絕損壞及遺失的檔案 |
 | 書籤及介接檔案 | 8 | 多級書籤、BasePage 換算、無效目標、標準動作和 JSON、外部目標明確拒絕、UTF-16 介接及分段頁碼、另存副本、可搜尋文字頁、既有頁碼標籤保留 |
 | 在地化 | 3 | 16 種語言及順序、完整資源載入、18 個地域語言映射、未知語言回退、手動選擇優先級、僅阿拉伯語採用 RTL |
 | 原生 PDF加密 | 14 | 實際 AESV2/128 位元字典、只開啟/只編輯/雙密碼、reader 與 owner 權限分離、錯誤密碼不提權、不同密碼要求、隨機 owner、單密碼與雙密碼的長度邊界、超長開啟密碼在寫入前拒絕、首尾空格、中文中繼資料、書籤、隱藏文字、一般分段頁碼與版面配置、文字前綴明確拒絕、不覆蓋和失敗清理 |
@@ -61,23 +62,25 @@ OCR 測試使用真實產生的文字影像，驗證輸出 PDF 的文字可提�
 
 ## 驗證邊界
 
-- 驗證機器為 Intel Mac；1.3 通用包的兩種架構均編譯成功，尚未在 Apple Silicon 實機測試。
+- 驗證機器為 Intel Mac；1.4 通用包的兩種架構均編譯成功，尚未在 Apple Silicon 實機測試。
 - 最低部署目標是 macOS 14；本次實際執行環境為 macOS 15.7.9。
+- JPEG XL 使用原生 ImageIO 解碼。5 個自行產生的測試樣本涵蓋有損 RGB、無損 RGB、RGBA 透明、16 位元灰階及動畫；目前系統只傳回動畫的第一影格，因此不保證動畫逐影格匯入。應用程式不提供 JXL 編碼輸出，不承諾原始編碼串流、HDR 或高位元深度資訊在 PDF 中原樣保留。
 - 沒有作大規模掃描書籍的效能基準測試，也不承諾任意相機 RAW 格式或任意非標準 PDF 目標的相容性。
 - 加密使用 Apple PDFKit，要求輸出 AESV2/128 位元，並按所選模式核驗密碼及權限。本機原生寫入 API 的 17–31 字元開啟密碼問題影響 owner 認證，因此雙密碼模式統一限制開啟密碼為 1–16 字元；編輯密碼及兩種單密碼模式各支援 1–32 字元。應用程式不自行修補密碼學結果，拒絕 Unicode、控制字元及超出所選模式長度邊界的輸入；邊界預檢、owner 權限和首尾空格保留均有實際檔案測試；雙密碼開啟密碼長度 17、31、32 會在寫入前拒絕。
 - 帶自訂文字前綴的頁碼標籤無法透過目前原生流程可靠保留，開啟加密時明確報錯；一般字母/羅馬/數字分段頁碼、閱讀版面配置及中繼資料均有往返測試。需要開啟密碼的檔案在應用程式內預覽時可輸入密碼；僅編輯密碼的檔案可直接預覽。加密檔案仍不支援書籤編輯。
-- 與舊軟體的差異，包括 JBIG2/G4 編碼、舊版 OCR 校對、介接多圖層和部分特殊書籤目標，詳見專案 README 的“與舊版的明確差異”。
+- 目前限制包括不支援的 JBIG2/G4 編碼、OCR 校對控制、介接多圖層和部分特殊書籤目標，詳見專案 README 的“目前限制”。
 
 ## 本次介面記錄
 
 | 狀態 | 實際視窗截圖 |
 |---|---|
+| 中文、JPEG XL 靜態影像匯入 | [jpeg-xl-import-zh.png](../screenshots/jpeg-xl-import-zh.png) |
 | 中文、加密預設折疊 | [encryption-collapsed-zh.png](../screenshots/encryption-collapsed-zh.png) |
 | 中文、雙密碼展開 | [encryption-inline-zh.png](../screenshots/encryption-inline-zh.png) |
 | 德語、深色、雙密碼展開 | [encryption-inline-de-dark.png](../screenshots/encryption-inline-de-dark.png) |
 | 阿拉伯語、RTL、雙密碼展開 | [encryption-inline-ar.png](../screenshots/encryption-inline-ar.png) |
 | 最終通用 app、中文、僅編輯密碼及關窗重開 | [encryption-editing-only-zh.png](../screenshots/encryption-editing-only-zh.png) |
 
-截圖透過應用程式本身 `NSView` 渲染獲取，不含其他應用程式內容。`build-results.txt` 記錄雙架構正式版建置；[Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.3.0) 中的 `SHA256SUMS-1.3.txt` 記錄分發 ZIP 校驗值。舊版面配置截圖移至 `screenshots/previous-layout/`，不作為本版本介面驗收依據。
+截圖透過應用程式本身 `NSView` 渲染獲取，不含其他應用程式內容。`build-results.txt` 記錄雙架構正式版建置；[Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.4.0) 中的 `SHA256SUMS-1.4.txt` 記錄分發 ZIP 校驗值。舊版面配置截圖移至 `screenshots/previous-layout/`，不作為本版本介面驗收依據。
 
-原始測試、建置及截圖記錄由工具產生，保留原始輸出並將本機專案路徑替換為 `<project>`；不把記錄翻譯後冒充原始證據。本說明的 16 種語言版本均解釋相同的測試結果、環境與邊界。原始碼版本不包含建置快取與發行二進位檔，發行包請從私有儲存庫的 Releases 下載。
+原始測試、建置及截圖記錄由工具產生，保留原始輸出並將本機專案路徑替換為 `<project>`；不把記錄翻譯後冒充原始證據。本說明的 16 種語言版本均解釋相同的測試結果、環境與邊界。原始碼版本不包含建置快取與發行二進位檔，發行包請從儲存庫的 Releases 下載。

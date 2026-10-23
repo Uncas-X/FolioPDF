@@ -3,27 +3,27 @@ Localization verified: 281 UI phrases × 16 languages; no missing or empty trans
 [0/1] Planning build
 Building for debugging...
 [0/4] Write swift-version--58304C5D6DBC2206.txt
-Build complete! (0.28s)
-Test Suite 'All tests' started at 2026-10-23 11:08:39.333.
-Test Suite 'FolioPDFPackageTests.xctest' started at 2026-10-23 11:08:39.335.
-Test Suite 'AssetLibraryTests' started at 2026-10-23 11:08:39.335.
+Build complete! (0.29s)
+Test Suite 'All tests' started at 2026-10-23 11:34:08.236.
+Test Suite 'FolioPDFPackageTests.xctest' started at 2026-10-23 11:34:08.238.
+Test Suite 'AssetLibraryTests' started at 2026-10-23 11:34:08.238.
 Test Case '-[FolioCoreTests.AssetLibraryTests testCommonBookPrefixes]' started.
 Test Case '-[FolioCoreTests.AssetLibraryTests testCommonBookPrefixes]' passed (0.001 seconds).
 Test Case '-[FolioCoreTests.AssetLibraryTests testRecursiveDiscoveryExcludesTopAndDeduplicates]' started.
 Test Case '-[FolioCoreTests.AssetLibraryTests testRecursiveDiscoveryExcludesTopAndDeduplicates]' passed (0.020 seconds).
 Test Case '-[FolioCoreTests.AssetLibraryTests testTrailingNumberAndStableOrder]' started.
 Test Case '-[FolioCoreTests.AssetLibraryTests testTrailingNumberAndStableOrder]' passed (0.001 seconds).
-Test Suite 'AssetLibraryTests' passed at 2026-10-23 11:08:39.358.
+Test Suite 'AssetLibraryTests' passed at 2026-10-23 11:34:08.261.
 	 Executed 3 tests, with 0 failures (0 unexpected) in 0.022 (0.023) seconds
-Test Suite 'BookmarkTests' started at 2026-10-23 11:08:39.358.
+Test Suite 'BookmarkTests' started at 2026-10-23 11:34:08.261.
 Test Case '-[FolioCoreTests.BookmarkTests testBasePageAndHierarchyRoundTrip]' started.
-Test Case '-[FolioCoreTests.BookmarkTests testBasePageAndHierarchyRoundTrip]' passed (0.072 seconds).
+Test Case '-[FolioCoreTests.BookmarkTests testBasePageAndHierarchyRoundTrip]' passed (0.077 seconds).
 Test Case '-[FolioCoreTests.BookmarkTests testExistingLabelsSurviveBookmarkEdit]' started.
 Test Case '-[FolioCoreTests.BookmarkTests testExistingLabelsSurviveBookmarkEdit]' passed (0.011 seconds).
 Test Case '-[FolioCoreTests.BookmarkTests testExportLoadAndSaveDoNotOverwriteOriginal]' started.
-Test Case '-[FolioCoreTests.BookmarkTests testExportLoadAndSaveDoNotOverwriteOriginal]' passed (0.008 seconds).
+Test Case '-[FolioCoreTests.BookmarkTests testExportLoadAndSaveDoNotOverwriteOriginal]' passed (0.010 seconds).
 Test Case '-[FolioCoreTests.BookmarkTests testInterfaceUTF16MetadataAndSegmentedLabels]' started.
-Test Case '-[FolioCoreTests.BookmarkTests testInterfaceUTF16MetadataAndSegmentedLabels]' passed (0.006 seconds).
+Test Case '-[FolioCoreTests.BookmarkTests testInterfaceUTF16MetadataAndSegmentedLabels]' passed (0.007 seconds).
 Test Case '-[FolioCoreTests.BookmarkTests testInvalidTargetsNeverSilentlyDisappear]' started.
 Test Case '-[FolioCoreTests.BookmarkTests testInvalidTargetsNeverSilentlyDisappear]' passed (0.002 seconds).
 Test Case '-[FolioCoreTests.BookmarkTests testRemoteTargetsArePreservedInTextAndExplicitlyRejectedForPDF]' started.
@@ -32,15 +32,15 @@ Test Case '-[FolioCoreTests.BookmarkTests testSupportedActionsAndJSONRoundTrip]'
 Test Case '-[FolioCoreTests.BookmarkTests testSupportedActionsAndJSONRoundTrip]' passed (0.003 seconds).
 Test Case '-[FolioCoreTests.BookmarkTests testTextPagesAreSearchableAndInvalidSidecarsAreExplicit]' started.
 Test Case '-[FolioCoreTests.BookmarkTests testTextPagesAreSearchableAndInvalidSidecarsAreExplicit]' passed (0.017 seconds).
-Test Suite 'BookmarkTests' passed at 2026-10-23 11:08:39.481.
-	 Executed 8 tests, with 0 failures (0 unexpected) in 0.122 (0.124) seconds
-Test Suite 'ConversionTests' started at 2026-10-23 11:08:39.481.
+Test Suite 'BookmarkTests' passed at 2026-10-23 11:34:08.393.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.130 (0.132) seconds
+Test Suite 'ConversionTests' started at 2026-10-23 11:34:08.393.
 Test Case '-[FolioCoreTests.ConversionTests testBatchFailureReturnsAlreadyPublishedOutputs]' started.
 Test Case '-[FolioCoreTests.ConversionTests testBatchFailureReturnsAlreadyPublishedOutputs]' passed (0.023 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testCancellationLeavesNoTemporaryPDF]' started.
-Test Case '-[FolioCoreTests.ConversionTests testCancellationLeavesNoTemporaryPDF]' passed (0.004 seconds).
+Test Case '-[FolioCoreTests.ConversionTests testCancellationLeavesNoTemporaryPDF]' passed (0.005 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testConversionCreatesMultipageTIFFAndGIFPagesBookmarksAndMetadata]' started.
-Test Case '-[FolioCoreTests.ConversionTests testConversionCreatesMultipageTIFFAndGIFPagesBookmarksAndMetadata]' passed (0.022 seconds).
+Test Case '-[FolioCoreTests.ConversionTests testConversionCreatesMultipageTIFFAndGIFPagesBookmarksAndMetadata]' passed (0.024 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testGeometryRejectsInvalidMarginsAndDPI]' started.
 Test Case '-[FolioCoreTests.ConversionTests testGeometryRejectsInvalidMarginsAndDPI]' passed (0.001 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testGeometryUsesDPIAndMarginsWithoutChangingAspectRatio]' started.
@@ -48,90 +48,109 @@ Test Case '-[FolioCoreTests.ConversionTests testGeometryUsesDPIAndMarginsWithout
 Test Case '-[FolioCoreTests.ConversionTests testImageInspectionAndEXIFRotation]' started.
 Test Case '-[FolioCoreTests.ConversionTests testImageInspectionAndEXIFRotation]' passed (0.008 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testJPEGCompressionReallyEmbedsJPEGStream]' started.
-Test Case '-[FolioCoreTests.ConversionTests testJPEGCompressionReallyEmbedsJPEGStream]' passed (0.024 seconds).
+Test Case '-[FolioCoreTests.ConversionTests testJPEGCompressionReallyEmbedsJPEGStream]' passed (0.026 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testLosslessUprightJPEGPreservesOriginalDCTStream]' started.
 Test Case '-[FolioCoreTests.ConversionTests testLosslessUprightJPEGPreservesOriginalDCTStream]' passed (0.034 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testOutputDoesNotOverwriteAndPerFolderGroupsOnlyDirectParents]' started.
-Test Case '-[FolioCoreTests.ConversionTests testOutputDoesNotOverwriteAndPerFolderGroupsOnlyDirectParents]' passed (0.034 seconds).
+Test Case '-[FolioCoreTests.ConversionTests testOutputDoesNotOverwriteAndPerFolderGroupsOnlyDirectParents]' passed (0.033 seconds).
 Test Case '-[FolioCoreTests.ConversionTests testVisionOCRCreatesSearchableInvisibleText]' started.
-Test Case '-[FolioCoreTests.ConversionTests testVisionOCRCreatesSearchableInvisibleText]' passed (0.870 seconds).
-Test Suite 'ConversionTests' passed at 2026-10-23 11:08:40.505.
-	 Executed 10 tests, with 0 failures (0 unexpected) in 1.021 (1.023) seconds
-Test Suite 'EncryptedConversionTests' started at 2026-10-23 11:08:40.505.
+Test Case '-[FolioCoreTests.ConversionTests testVisionOCRCreatesSearchableInvisibleText]' passed (1.074 seconds).
+Test Suite 'ConversionTests' passed at 2026-10-23 11:34:09.624.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 1.229 (1.231) seconds
+Test Suite 'EncryptedConversionTests' started at 2026-10-23 11:34:09.624.
 Test Case '-[FolioCoreTests.EncryptedConversionTests testCancellationDuringEncryptedConversionCleansUnpublishedFiles]' started.
-Test Case '-[FolioCoreTests.EncryptedConversionTests testCancellationDuringEncryptedConversionCleansUnpublishedFiles]' passed (0.038 seconds).
+Test Case '-[FolioCoreTests.EncryptedConversionTests testCancellationDuringEncryptedConversionCleansUnpublishedFiles]' passed (0.057 seconds).
 Test Case '-[FolioCoreTests.EncryptedConversionTests testCombinedPDFRequiresPasswordAndPreservesMetadataAndBookmarks]' started.
-Test Case '-[FolioCoreTests.EncryptedConversionTests testCombinedPDFRequiresPasswordAndPreservesMetadataAndBookmarks]' passed (0.035 seconds).
+Test Case '-[FolioCoreTests.EncryptedConversionTests testCombinedPDFRequiresPasswordAndPreservesMetadataAndBookmarks]' passed (0.074 seconds).
 Test Case '-[FolioCoreTests.EncryptedConversionTests testDualPasswordsSeparateReaderAndOwnerWhilePreservingDocumentDetails]' started.
-Test Case '-[FolioCoreTests.EncryptedConversionTests testDualPasswordsSeparateReaderAndOwnerWhilePreservingDocumentDetails]' passed (0.028 seconds).
+Test Case '-[FolioCoreTests.EncryptedConversionTests testDualPasswordsSeparateReaderAndOwnerWhilePreservingDocumentDetails]' passed (0.033 seconds).
 Test Case '-[FolioCoreTests.EncryptedConversionTests testEncryptedVisionOCRRemainsSearchableAndInvisibleAfterUnlocking]' started.
-Test Case '-[FolioCoreTests.EncryptedConversionTests testEncryptedVisionOCRRemainsSearchableAndInvisibleAfterUnlocking]' passed (0.296 seconds).
+Test Case '-[FolioCoreTests.EncryptedConversionTests testEncryptedVisionOCRRemainsSearchableAndInvisibleAfterUnlocking]' passed (0.331 seconds).
 Test Case '-[FolioCoreTests.EncryptedConversionTests testInvalidPasswordNeverPublishesPlaintextOrLeavesTemporaryFiles]' started.
-Test Case '-[FolioCoreTests.EncryptedConversionTests testInvalidPasswordNeverPublishesPlaintextOrLeavesTemporaryFiles]' passed (0.005 seconds).
+Test Case '-[FolioCoreTests.EncryptedConversionTests testInvalidPasswordNeverPublishesPlaintextOrLeavesTemporaryFiles]' passed (0.008 seconds).
 Test Case '-[FolioCoreTests.EncryptedConversionTests testPerFileEncryptsEveryOutputWithoutReplacingSameNamedFile]' started.
-Test Case '-[FolioCoreTests.EncryptedConversionTests testPerFileEncryptsEveryOutputWithoutReplacingSameNamedFile]' passed (0.045 seconds).
+Test Case '-[FolioCoreTests.EncryptedConversionTests testPerFileEncryptsEveryOutputWithoutReplacingSameNamedFile]' passed (0.063 seconds).
 Test Case '-[FolioCoreTests.EncryptedConversionTests testPerFolderEditingPasswordAllowsReadingAndRequiresOwnerForChanges]' started.
-Test Case '-[FolioCoreTests.EncryptedConversionTests testPerFolderEditingPasswordAllowsReadingAndRequiresOwnerForChanges]' passed (0.052 seconds).
-Test Suite 'EncryptedConversionTests' passed at 2026-10-23 11:08:41.006.
-	 Executed 7 tests, with 0 failures (0 unexpected) in 0.500 (0.501) seconds
-Test Suite 'EncryptionSettingsTests' started at 2026-10-23 11:08:41.006.
+Test Case '-[FolioCoreTests.EncryptedConversionTests testPerFolderEditingPasswordAllowsReadingAndRequiresOwnerForChanges]' passed (0.055 seconds).
+Test Suite 'EncryptedConversionTests' passed at 2026-10-23 11:34:10.251.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.623 (0.627) seconds
+Test Suite 'EncryptionSettingsTests' started at 2026-10-23 11:34:10.251.
 Test Case '-[FolioPDFTests.EncryptionSettingsTests testDisablingEachPasswordClearsOnlyItsOwnFields]' started.
-Test Case '-[FolioPDFTests.EncryptionSettingsTests testDisablingEachPasswordClearsOnlyItsOwnFields]' passed (0.001 seconds).
+Test Case '-[FolioPDFTests.EncryptionSettingsTests testDisablingEachPasswordClearsOnlyItsOwnFields]' passed (0.002 seconds).
 Test Case '-[FolioPDFTests.EncryptionSettingsTests testEditingPasswordConfirmationAndPasswordSeparation]' started.
 Test Case '-[FolioPDFTests.EncryptionSettingsTests testEditingPasswordConfirmationAndPasswordSeparation]' passed (0.001 seconds).
 Test Case '-[FolioPDFTests.EncryptionSettingsTests testEncryptedExportKeepsAccurateHistoryWithoutSavingPassword]' started.
-Test Case '-[FolioPDFTests.EncryptionSettingsTests testEncryptedExportKeepsAccurateHistoryWithoutSavingPassword]' passed (0.131 seconds).
+Test Case '-[FolioPDFTests.EncryptionSettingsTests testEncryptedExportKeepsAccurateHistoryWithoutSavingPassword]' passed (0.126 seconds).
 Test Case '-[FolioPDFTests.EncryptionSettingsTests testInvalidPasswordAndMismatchCannotStartAnExport]' started.
 Test Case '-[FolioPDFTests.EncryptionSettingsTests testInvalidPasswordAndMismatchCannotStartAnExport]' passed (0.002 seconds).
 Test Case '-[FolioPDFTests.EncryptionSettingsTests testPasswordsAreSessionOnlyAndResetClearsThem]' started.
-Test Case '-[FolioPDFTests.EncryptionSettingsTests testPasswordsAreSessionOnlyAndResetClearsThem]' passed (0.009 seconds).
-Test Suite 'EncryptionSettingsTests' passed at 2026-10-23 11:08:41.151.
-	 Executed 5 tests, with 0 failures (0 unexpected) in 0.145 (0.146) seconds
-Test Suite 'LocalizationTests' started at 2026-10-23 11:08:41.151.
+Test Case '-[FolioPDFTests.EncryptionSettingsTests testPasswordsAreSessionOnlyAndResetClearsThem]' passed (0.004 seconds).
+Test Suite 'EncryptionSettingsTests' passed at 2026-10-23 11:34:10.387.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.134 (0.135) seconds
+Test Suite 'JPEGXLTests' started at 2026-10-23 11:34:10.387.
+Test Case '-[FolioCoreTests.JPEGXLTests testAnimatedJPEGXLExportsOnlyFramesExposedByImageIO]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testAnimatedJPEGXLExportsOnlyFramesExposedByImageIO]' passed (0.015 seconds).
+Test Case '-[FolioCoreTests.JPEGXLTests testDamagedOrMissingJPEGXLIsRejectedWithoutPublishingPDF]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testDamagedOrMissingJPEGXLIsRejectedWithoutPublishingPDF]' passed (0.004 seconds).
+Test Case '-[FolioCoreTests.JPEGXLTests testJPEGXLConversionPreservesPageSizesAndDecodedContent]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testJPEGXLConversionPreservesPageSizesAndDecodedContent]' passed (0.040 seconds).
+Test Case '-[FolioCoreTests.JPEGXLTests testJPEGXLTransparencyInPDFAndJPEGFallback]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testJPEGXLTransparencyInPDFAndJPEGFallback]' passed (0.030 seconds).
+Test Case '-[FolioCoreTests.JPEGXLTests testJPEGXLTypeFilteringAndRecursiveDiscovery]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testJPEGXLTypeFilteringAndRecursiveDiscovery]' passed (0.014 seconds).
+Test Case '-[FolioCoreTests.JPEGXLTests testLossyAndLosslessRGBInspectionThumbnailsAndFullSizePreview]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testLossyAndLosslessRGBInspectionThumbnailsAndFullSizePreview]' passed (0.018 seconds).
+Test Case '-[FolioCoreTests.JPEGXLTests testSixteenBitGrayscaleJPEGXLDecodesWithoutDroppingPixelDimensions]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testSixteenBitGrayscaleJPEGXLDecodesWithoutDroppingPixelDimensions]' passed (0.018 seconds).
+Test Case '-[FolioCoreTests.JPEGXLTests testTransparentJPEGXLPreservesAlphaDuringDecodeAndPreview]' started.
+Test Case '-[FolioCoreTests.JPEGXLTests testTransparentJPEGXLPreservesAlphaDuringDecodeAndPreview]' passed (0.006 seconds).
+Test Suite 'JPEGXLTests' passed at 2026-10-23 11:34:10.534.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.145 (0.147) seconds
+Test Suite 'LocalizationTests' started at 2026-10-23 11:34:10.534.
 Test Case '-[FolioPDFTests.LocalizationTests testManualChoiceOverridesSystemAndOnlyArabicMirrorsLayout]' started.
 Test Case '-[FolioPDFTests.LocalizationTests testManualChoiceOverridesSystemAndOnlyArabicMirrorsLayout]' passed (0.000 seconds).
 Test Case '-[FolioPDFTests.LocalizationTests testRequestedLanguageOrderAndEveryTranslationExists]' started.
 Test Case '-[FolioPDFTests.LocalizationTests testRequestedLanguageOrderAndEveryTranslationExists]' passed (0.004 seconds).
 Test Case '-[FolioPDFTests.LocalizationTests testSystemRegionalLanguageResolution]' started.
 Test Case '-[FolioPDFTests.LocalizationTests testSystemRegionalLanguageResolution]' passed (0.001 seconds).
-Test Suite 'LocalizationTests' passed at 2026-10-23 11:08:41.157.
+Test Suite 'LocalizationTests' passed at 2026-10-23 11:34:10.539.
 	 Executed 3 tests, with 0 failures (0 unexpected) in 0.005 (0.005) seconds
-Test Suite 'PDFEncryptionTests' started at 2026-10-23 11:08:41.157.
+Test Suite 'PDFEncryptionTests' started at 2026-10-23 11:34:10.539.
 Test Case '-[FolioCoreTests.PDFEncryptionTests testAlreadyEncryptedSourceIsExplicitlyRejected]' started.
 Test Case '-[FolioCoreTests.PDFEncryptionTests testAlreadyEncryptedSourceIsExplicitlyRejected]' passed (0.015 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testBoundaryPasswordsAreUsedExactlyWithoutTrimming]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testBoundaryPasswordsAreUsedExactlyWithoutTrimming]' passed (0.035 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testBoundaryPasswordsAreUsedExactlyWithoutTrimming]' passed (0.038 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testCustomTextPageLabelPrefixFailsWithoutPublishingAnyFile]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testCustomTextPageLabelPrefixFailsWithoutPublishingAnyFile]' passed (0.009 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testCustomTextPageLabelPrefixFailsWithoutPublishingAnyFile]' passed (0.010 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testDualPasswordOpeningLimitIsCheckedBeforeAnyOutputIsWritten]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testDualPasswordOpeningLimitIsCheckedBeforeAnyOutputIsWritten]' passed (0.016 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testDualPasswordOpeningLimitIsCheckedBeforeAnyOutputIsWritten]' passed (0.017 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testDualPasswordsGiveReaderAndOwnerDifferentPermissions]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testDualPasswordsGiveReaderAndOwnerDifferentPermissions]' passed (0.023 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testDualPasswordsGiveReaderAndOwnerDifferentPermissions]' passed (0.024 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testEditingPasswordBoundariesAreNotTruncatedOrTrimmed]' started.
 Test Case '-[FolioCoreTests.PDFEncryptionTests testEditingPasswordBoundariesAreNotTruncatedOrTrimmed]' passed (0.033 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testEditingPasswordOnlyIsReadableButWrongPasswordCannotGrantEditing]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testEditingPasswordOnlyIsReadableButWrongPasswordCannotGrantEditing]' passed (0.027 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testEditingPasswordOnlyIsReadableButWrongPasswordCannotGrantEditing]' passed (0.026 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testExistingDestinationAndOriginalAreNeverOverwritten]' started.
 Test Case '-[FolioCoreTests.PDFEncryptionTests testExistingDestinationAndOriginalAreNeverOverwritten]' passed (0.006 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testFreshOwnerPasswordsProduceDifferentOwnerEntries]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testFreshOwnerPasswordsProduceDifferentOwnerEntries]' passed (0.025 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testFreshOwnerPasswordsProduceDifferentOwnerEntries]' passed (0.026 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testInvalidSourceAndWriteFailureLeaveNoPartialOrPlaintextOutput]' started.
 CoreGraphics PDF has logged an error. Set environment variable "CG_PDF_VERBOSE" to learn more.
 Test Case '-[FolioCoreTests.PDFEncryptionTests testInvalidSourceAndWriteFailureLeaveNoPartialOrPlaintextOutput]' passed (0.014 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testNativeAES128RequiresPasswordAndPreservesSearchableContent]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testNativeAES128RequiresPasswordAndPreservesSearchableContent]' passed (0.026 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testNativeAES128RequiresPasswordAndPreservesSearchableContent]' passed (0.027 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testOpeningAndEditingPasswordsValidateIndependently]' started.
 Test Case '-[FolioCoreTests.PDFEncryptionTests testOpeningAndEditingPasswordsValidateIndependently]' passed (0.001 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testPageLabelsLayoutAndBookmarkPaneSurviveEncryption]' started.
-Test Case '-[FolioCoreTests.PDFEncryptionTests testPageLabelsLayoutAndBookmarkPaneSurviveEncryption]' passed (0.024 seconds).
+Test Case '-[FolioCoreTests.PDFEncryptionTests testPageLabelsLayoutAndBookmarkPaneSurviveEncryption]' passed (0.025 seconds).
 Test Case '-[FolioCoreTests.PDFEncryptionTests testPasswordValidationRejectsTruncationUnicodeAndControls]' started.
 Test Case '-[FolioCoreTests.PDFEncryptionTests testPasswordValidationRejectsTruncationUnicodeAndControls]' passed (0.000 seconds).
-Test Suite 'PDFEncryptionTests' passed at 2026-10-23 11:08:41.411.
-	 Executed 14 tests, with 0 failures (0 unexpected) in 0.252 (0.254) seconds
-Test Suite 'FolioPDFPackageTests.xctest' passed at 2026-10-23 11:08:41.411.
-	 Executed 50 tests, with 0 failures (0 unexpected) in 2.066 (2.076) seconds
-Test Suite 'All tests' passed at 2026-10-23 11:08:41.411.
-	 Executed 50 tests, with 0 failures (0 unexpected) in 2.066 (2.079) seconds
+Test Suite 'PDFEncryptionTests' passed at 2026-10-23 11:34:10.806.
+	 Executed 14 tests, with 0 failures (0 unexpected) in 0.263 (0.266) seconds
+Test Suite 'FolioPDFPackageTests.xctest' passed at 2026-10-23 11:34:10.806.
+	 Executed 58 tests, with 0 failures (0 unexpected) in 2.552 (2.567) seconds
+Test Suite 'All tests' passed at 2026-10-23 11:34:10.806.
+	 Executed 58 tests, with 0 failures (0 unexpected) in 2.552 (2.570) seconds
 ◇ Test run started.
 ↳ Testing Library Version: 1501
 ↳ Target Platform: x86_64-apple-macos14.0

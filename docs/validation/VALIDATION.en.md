@@ -1,4 +1,4 @@
-# FolioPDF 1.3 Validation Report
+# FolioPDF 1.4 Validation Report
 
 <!-- languages:start -->
 [简体中文](../VALIDATION.md) · **English** · [繁體中文](VALIDATION.zh-Hant.md) · [日本語](VALIDATION.ja.md) · [한국어](VALIDATION.ko.md) · [Français](VALIDATION.fr.md) · [Deutsch](VALIDATION.de.md) · [Español](VALIDATION.es.md) · [Italiano](VALIDATION.it.md) · [Português (Brasil)](VALIDATION.pt-BR.md) · [Русский](VALIDATION.ru.md) · [العربية](VALIDATION.ar.md) · [हिन्दी](VALIDATION.hi.md) · [Türkçe](VALIDATION.tr.md) · [Nederlands](VALIDATION.nl.md) · [Polski](VALIDATION.pl.md)
@@ -6,23 +6,24 @@
 
 Status: **tests and builds passed**. Recorded on: 2026-10-23. Verification environment: Intel Mac, macOS 15.7.9, Swift 6.2.4 / Xcode. Minimum deployment version: macOS 14.
 
-This update adds independent opening and editing passwords and moves encryption settings into a section inside the right-hand panel that is collapsed by default and clickable across its entire header row. All 50 XCTest cases passed in the complete run, with 0 failures and 0 skipped tests. The local native PDF writer was confirmed to potentially produce unusable owner passwords when the opening password is 17–31 characters long. The application avoids this with length validation in dual-password mode; the safety boundaries are described below. See `test-results.txt` for this run's log.
+This version supports JPEG XL input through native ImageIO on macOS 14 or later, as well as independent opening and editing passwords. Encryption settings occupy a section inside the right-hand panel that is collapsed by default and clickable across its entire header row. All 58 XCTest cases passed in the complete run, with 0 failures and 0 skipped tests. The local native PDF writer was confirmed to potentially produce unusable owner passwords when the opening password is 17–31 characters long. The application avoids this with length validation in dual-password mode; the safety boundaries are described below. See `test-results.txt` for this run's log.
 
 ## Deliverables
 
 - `dist/FolioPDF.app`: a native AppKit window, SwiftUI interface, and system PDFKit / Vision / ImageIO frameworks. The application filename has no version number; the version is recorded in its metadata.
-- `dist/FolioPDF-1.3-macOS.zip`: a universal application package containing x86_64 and arm64, verified with `lipo -archs`.
-- `dist/FolioPDF-1.3-source.zip`: Swift Package source that opens in Xcode, including tests, scripts, usage documentation, and interface screenshots.
-- The packaging script uses a local ad-hoc signature and passed `codesign --verify --deep --strict`; Developer ID notarization is not included. The internal version is 1.3 (build 4), and the application filename remains `FolioPDF.app`.
+- `dist/FolioPDF-1.4-macOS.zip`: a universal application package containing x86_64 and arm64, verified with `lipo -archs`.
+- `dist/FolioPDF-1.4-source.zip`: Swift Package source that opens in Xcode, including tests, scripts, usage documentation, and interface screenshots.
+- The packaging script uses a local ad-hoc signature and passed `codesign --verify --deep --strict`; Developer ID notarization is not included. The internal version is 1.4 (build 5), and the application filename remains `FolioPDF.app`.
 
 ## Functional tests
 
-`bash scripts/test.sh` was run, and all 50 XCTest cases passed. Detailed output is saved in `test-results.txt`. The real Vision OCR tests also ran, with none skipped.
+`bash scripts/test.sh` was run, and all 58 XCTest cases passed. Detailed output is saved in `test-results.txt`. The real Vision OCR tests also ran, with none skipped.
 
 | Area | Count | Verified behavior |
 |---|---:|---|
 | Asset discovery and sorting | 3 | Numeric sorting, ebook prefixes, subdirectories and top-level exclusion, duplicate paths |
 | PDF conversion | 10 | Page geometry and invalid parameters, EXIF orientation, multipage TIFF/GIF, metadata and bookmarks, grouping by directory, no file overwriting, partial batch failure, actual JPEG encoding, original JPEG stream preservation, Vision hidden text and searchability, cancellation cleanup |
+| JPEG XL input | 8 | Native type and extension mapping, folder discovery, lossy/lossless RGB, RGBA transparency, 16-bit grayscale, thumbnails and previews, PDF dimensions and rendering, transparent/white-background output, animation output based on frames exposed by the system, rejection of corrupt and missing files |
 | Bookmarks and interface files | 8 | Multilevel bookmarks, BasePage conversion, invalid destinations, standard actions and JSON, explicit rejection of external destinations, UTF-16 interfaces and segmented page numbering, saving separate copies, searchable text pages, preservation of existing page labels |
 | Localization | 3 | The 16 languages and their order, complete resource loading, 18 regional-language mappings, fallback for unknown languages, manual-selection priority, RTL only for Arabic |
 | Native PDF encryption | 14 | Actual AESV2/128-bit dictionary, opening-only/editing-only/dual passwords, separate reader and owner permissions, no privilege escalation with incorrect passwords, distinct-password requirement, random owner password, single- and dual-password length boundaries, rejection of excessive opening-password length before writing, leading/trailing spaces, Chinese metadata, bookmarks, hidden text, ordinary segmented page labels and layouts, explicit rejection of text prefixes, no overwriting, and failure cleanup |
@@ -61,23 +62,25 @@ Calling `unlock(withPassword:)` on an already open PDF can return `true` even wh
 
 ## Verification boundaries
 
-- Verification took place on an Intel Mac. Both architectures of the 1.3 universal package compiled successfully, but the application has not yet been tested on physical Apple Silicon hardware.
+- Verification took place on an Intel Mac. Both architectures of the 1.4 universal package compiled successfully, but the application has not yet been tested on physical Apple Silicon hardware.
 - The minimum deployment target is macOS 14; this verification ran on macOS 15.7.9.
+- JPEG XL uses native ImageIO decoding. 5 self-generated test samples cover lossy RGB, lossless RGB, RGBA transparency, 16-bit grayscale, and animation. The current system returns only the first animation frame, so frame-by-frame animation import is not guaranteed. The application does not encode JXL output and does not promise to preserve the original bitstream, HDR, or high-bit-depth information unchanged in the PDF.
 - No large-scale scanned-book performance benchmark was conducted. Compatibility with every camera RAW format or every nonstandard PDF destination is not promised.
 - Encryption uses Apple PDFKit, requires AESV2/128-bit output, and checks passwords and permissions for the selected mode. The local native writer's issue with opening passwords of 17–31 characters affects owner authentication, so dual-password mode consistently limits opening passwords to 1–16 characters. Editing passwords and both single-password modes support 1–32 characters. The application does not repair cryptographic results itself. It rejects Unicode, control characters, and input beyond the selected mode's length limits. Actual-file tests cover boundary validation, owner permissions, and preservation of leading/trailing spaces; opening-password lengths of 17, 31, and 32 are rejected before writing in dual-password mode.
 - Page labels with custom text prefixes cannot be reliably preserved through the current native path and explicitly cause an error when encryption is enabled. Ordinary alphabetic/Roman/numeric segmented labels, reading layouts, and metadata have round-trip tests. Files requiring an opening password can be unlocked in the in-app preview; editing-password-only files can be previewed directly. Encrypted files still do not support bookmark editing.
-- Differences from the original software, including JBIG2/G4 encoding, original OCR proofreading, multilayer interface files, and some special bookmark destinations, are detailed in “Explicit differences from the original application” in the project README.
+- Current limitations, including unavailable JBIG2/G4 encoding, OCR proofreading controls, multilayer interface files, and some special bookmark destinations, are detailed in “Current limitations” in the project README.
 
 ## Interface captures for this release
 
 | State | Actual window screenshot |
 |---|---|
+| Chinese, importing static JPEG XL images | [jpeg-xl-import-zh.png](../screenshots/jpeg-xl-import-zh.png) |
 | Chinese, encryption collapsed by default | [encryption-collapsed-zh.png](../screenshots/encryption-collapsed-zh.png) |
 | Chinese, both passwords expanded | [encryption-inline-zh.png](../screenshots/encryption-inline-zh.png) |
 | German, dark mode, both passwords expanded | [encryption-inline-de-dark.png](../screenshots/encryption-inline-de-dark.png) |
 | Arabic, RTL, both passwords expanded | [encryption-inline-ar.png](../screenshots/encryption-inline-ar.png) |
 | Final universal app, Chinese, editing-password-only and window reopening | [encryption-editing-only-zh.png](../screenshots/encryption-editing-only-zh.png) |
 
-Screenshots were captured by rendering the application's own `NSView` and contain no other application content. `build-results.txt` records the production builds for both architectures; `SHA256SUMS-1.3.txt` in [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.3.0) records checksums for the distribution ZIPs. Old-layout screenshots were moved to `screenshots/previous-layout/` and are not evidence for this version's interface acceptance.
+Screenshots were captured by rendering the application's own `NSView` and contain no other application content. `build-results.txt` records the production builds for both architectures; `SHA256SUMS-1.4.txt` in [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.4.0) records checksums for the distribution ZIPs. Old-layout screenshots were moved to `screenshots/previous-layout/` and are not evidence for this version's interface acceptance.
 
-Raw test, build, and screenshot logs are generated by tools. Their original output is retained, with local project paths replaced by `<project>`; translated logs are not presented as original evidence. All 16 language versions of this report explain the same results, environment, and boundaries. The source version contains neither build caches nor release binaries; download release packages from the private repository's Releases.
+Raw test, build, and screenshot logs are generated by tools. Their original output is retained, with local project paths replaced by `<project>`; translated logs are not presented as original evidence. All 16 language versions of this report explain the same results, environment, and boundaries. The source version contains neither build caches nor release binaries; download release packages from the repository's Releases.

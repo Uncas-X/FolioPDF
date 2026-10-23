@@ -1,4 +1,4 @@
-# FolioPDF 1.3: registro de validación
+# FolioPDF 1.4: registro de validación
 
 <!-- languages:start -->
 [简体中文](../VALIDATION.md) · [English](VALIDATION.en.md) · [繁體中文](VALIDATION.zh-Hant.md) · [日本語](VALIDATION.ja.md) · [한국어](VALIDATION.ko.md) · [Français](VALIDATION.fr.md) · [Deutsch](VALIDATION.de.md) · **Español** · [Italiano](VALIDATION.it.md) · [Português (Brasil)](VALIDATION.pt-BR.md) · [Русский](VALIDATION.ru.md) · [العربية](VALIDATION.ar.md) · [हिन्दी](VALIDATION.hi.md) · [Türkçe](VALIDATION.tr.md) · [Nederlands](VALIDATION.nl.md) · [Polski](VALIDATION.pl.md)
@@ -6,23 +6,24 @@
 
 Estado: **pruebas y compilación superadas**. Fecha: 2026-10-23. Entorno: Intel Mac, macOS 15.7.9, Swift 6.2.4 / Xcode. Versión mínima de despliegue: macOS 14.
 
-Esta versión incorpora contraseñas independientes de apertura y edición. El cifrado se configura en una sección del panel derecho, contraída inicialmente y con toda la cabecera pulsable. Se ejecutaron los 50 XCTest completos: 0 fallos y 0 omitidos. Se confirmó que la interfaz nativa de escritura PDF de este Mac puede invalidar la contraseña owner cuando la contraseña de apertura tiene 17–31 caracteres. La aplicación lo evita comprobando la longitud antes de exportar con dos contraseñas; los límites seguros se describen más adelante. El registro de esta ejecución es `test-results.txt`.
+Esta versión admite imágenes JPEG XL mediante ImageIO nativo en macOS 14 o posterior, además de contraseñas independientes de apertura y edición. El cifrado se configura en una sección del panel derecho, contraída inicialmente y con toda la cabecera pulsable. Se ejecutaron los 58 XCTest completos: 0 fallos y 0 omitidos. Se confirmó que la interfaz nativa de escritura PDF de este Mac puede invalidar la contraseña owner cuando la contraseña de apertura tiene 17–31 caracteres. La aplicación lo evita comprobando la longitud antes de exportar con dos contraseñas; los límites seguros se describen más adelante. El registro de esta ejecución es `test-results.txt`.
 
 ## Entregables
 
 - `dist/FolioPDF.app`: ventanas AppKit nativas, interfaz SwiftUI y frameworks del sistema PDFKit / Vision / ImageIO. El nombre de la aplicación no lleva versión; esta se guarda en sus metadatos.
-- `dist/FolioPDF-1.3-macOS.zip`: aplicación universal con x86_64 y arm64, comprobada con `lipo -archs`.
-- `dist/FolioPDF-1.3-source.zip`: código Swift Package que se puede abrir en Xcode, con pruebas, scripts, instrucciones y capturas de interfaz.
-- El script de empaquetado usa firma ad-hoc local; `codesign --verify --deep --strict` se superó. No hay notarización Developer ID. La versión interna es 1.3 (build 4); el archivo sigue llamándose `FolioPDF.app`.
+- `dist/FolioPDF-1.4-macOS.zip`: aplicación universal con x86_64 y arm64, comprobada con `lipo -archs`.
+- `dist/FolioPDF-1.4-source.zip`: código Swift Package que se puede abrir en Xcode, con pruebas, scripts, instrucciones y capturas de interfaz.
+- El script de empaquetado usa firma ad-hoc local; `codesign --verify --deep --strict` se superó. No hay notarización Developer ID. La versión interna es 1.4 (build 5); el archivo sigue llamándose `FolioPDF.app`.
 
 ## Pruebas funcionales
 
-Se ejecutó `bash scripts/test.sh` y se superaron los 50 XCTest. La salida detallada está en `test-results.txt`. También se ejecutaron las pruebas reales de OCR con Vision, sin omisiones.
+Se ejecutó `bash scripts/test.sh` y se superaron los 58 XCTest. La salida detallada está en `test-results.txt`. También se ejecutaron las pruebas reales de OCR con Vision, sin omisiones.
 
 | Área | Cantidad | Contenido verificado |
 |---|---:|---|
 | Descubrimiento y orden de archivos | 3 | Orden numérico, prefijos de libros electrónicos, subcarpetas y exclusión de la carpeta superior, rutas duplicadas |
 | Conversión PDF | 10 | Geometría y parámetros inválidos, orientación EXIF, TIFF/GIF multipágina, metadatos y marcadores, agrupación por carpeta, no sobrescritura, fallos parciales de lotes, codificación JPEG real, conservación del flujo JPEG original, texto oculto y buscable de Vision, limpieza al cancelar |
+| Entrada JPEG XL | 8 | Correspondencia de tipos nativos y extensiones, detección en carpetas, RGB con/sin pérdida, transparencia RGBA, escala de grises de 16 bits, miniaturas y vista previa, dimensiones y renderizado PDF, salida transparente/con fondo blanco, salida de animación según los fotogramas expuestos por el sistema, rechazo de archivos dañados o ausentes |
 | Marcadores y archivos de interfaz | 8 | Índice multinivel, conversión BasePage, destinos inválidos, acciones estándar y JSON, rechazo explícito de destinos externos, interfaz UTF-16 y numeración por secciones, guardar copia, páginas de texto buscable y conservación de etiquetas de página existentes |
 | Localización | 3 | 16 idiomas y orden, carga completa de recursos, 18 correspondencias regionales de idioma, alternativa para idiomas desconocidos, prioridad de selección manual y RTL solo para árabe |
 | Cifrado de PDF nativo | 14 | Diccionario real AESV2/128 bits, modos solo apertura/solo edición/ambos, separación de permisos reader/owner, ausencia de elevación con contraseñas erróneas, contraseñas distintas, owner aleatorio, límites de longitud de una o dos contraseñas, rechazo de apertura demasiado larga antes de escribir, espacios iniciales/finales, metadatos chinos, marcadores, texto oculto, etiquetas por secciones y disposición, rechazo explícito de prefijos de texto, no sobrescritura y limpieza tras errores |
@@ -61,23 +62,25 @@ En un PDF ya abierto, `unlock(withPassword:)` puede devolver `true` incluso con 
 
 ## Límites de validación
 
-- El equipo de pruebas es un Intel Mac. Ambas arquitecturas del paquete universal 1.3 se compilaron correctamente; no se ha probado en un equipo Apple Silicon real.
+- El equipo de pruebas es un Intel Mac. Ambas arquitecturas del paquete universal 1.4 se compilaron correctamente; no se ha probado en un equipo Apple Silicon real.
 - El despliegue mínimo es macOS 14; la ejecución real fue en macOS 15.7.9.
+- JPEG XL usa la decodificación nativa de ImageIO. Las 5 muestras de prueba generadas internamente abarcan RGB con pérdida, RGB sin pérdida, transparencia RGBA, escala de grises de 16 bits y animación. El sistema actual solo devuelve el primer fotograma animado, por lo que no se garantiza la importación fotograma a fotograma. La aplicación no ofrece salida codificada en JXL ni garantiza conservar sin cambios el flujo original, HDR o la información de alta profundidad de bits en el PDF.
 - No hay pruebas de rendimiento a gran escala con libros escaneados ni garantía para cualquier formato RAW de cámara o destino PDF no estándar.
 - El cifrado usa Apple PDFKit, exige AESV2/128 bits y comprueba contraseñas y permisos según el modo. El problema nativo con contraseñas de apertura de 17–31 caracteres afecta a la autenticación owner; por eso el modo doble limita uniformemente la apertura a 1–16 caracteres. La edición y ambos modos de contraseña única admiten 1–32. La aplicación no modifica por su cuenta resultados criptográficos; rechaza Unicode, controles y longitudes fuera de los límites. Se prueban con archivos reales la prevalidación, los permisos owner y los espacios de los extremos. En modo doble se rechazan antes de escribir longitudes de apertura de 17, 31 y 32.
 - Las etiquetas de página con prefijos personalizados no se conservan de forma fiable por la ruta nativa actual y provocan un error explícito al cifrar. La numeración alfabética, romana y numérica por secciones, la disposición de lectura y los metadatos cuentan con pruebas de ida y vuelta. La vista previa permite introducir una contraseña de apertura; el modo solo edición se previsualiza directamente. No se editan marcadores de archivos cifrados.
-- Las diferencias con el programa original —JBIG2/G4, corrección OCR antigua, interfaz multicapa y algunos destinos especiales— se explican en «Diferencias explícitas respecto al programa original» del README del proyecto.
+- Las limitaciones actuales, como la falta de codificación JBIG2/G4, las herramientas de corrección OCR, la interfaz multicapa y algunos destinos especiales, se explican en «Limitaciones actuales» del README del proyecto.
 
 ## Capturas de esta versión
 
 | Estado | Captura de la ventana real |
 |---|---|
+| Chino, importación de imágenes JPEG XL estáticas | [jpeg-xl-import-zh.png](../screenshots/jpeg-xl-import-zh.png) |
 | Chino, cifrado inicialmente contraído | [encryption-collapsed-zh.png](../screenshots/encryption-collapsed-zh.png) |
 | Chino, ambas contraseñas desplegadas | [encryption-inline-zh.png](../screenshots/encryption-inline-zh.png) |
 | Alemán, oscuro, ambas contraseñas desplegadas | [encryption-inline-de-dark.png](../screenshots/encryption-inline-de-dark.png) |
 | Árabe, RTL, ambas contraseñas desplegadas | [encryption-inline-ar.png](../screenshots/encryption-inline-ar.png) |
 | App universal final, chino, solo edición y reapertura de ventana | [encryption-editing-only-zh.png](../screenshots/encryption-editing-only-zh.png) |
 
-Las capturas se obtuvieron renderizando la `NSView` de la propia aplicación, sin contenido de otras apps. `build-results.txt` documenta la compilación de producción para ambas arquitecturas. `SHA256SUMS-1.3.txt`, disponible en [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.3.0), contiene las sumas de comprobación de los ZIP. Las capturas antiguas se trasladaron a `screenshots/previous-layout/` y no se utilizan como prueba de la interfaz actual.
+Las capturas se obtuvieron renderizando la `NSView` de la propia aplicación, sin contenido de otras apps. `build-results.txt` documenta la compilación de producción para ambas arquitecturas. `SHA256SUMS-1.4.txt`, disponible en [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.4.0), contiene las sumas de comprobación de los ZIP. Las capturas antiguas se trasladaron a `screenshots/previous-layout/` y no se utilizan como prueba de la interfaz actual.
 
-Los registros originales de pruebas, compilación y capturas son generados por herramientas. Se conserva la salida y se sustituyen las rutas locales del proyecto por `<project>`; no se presentan traducciones como pruebas originales. Las 16 versiones de este documento explican los mismos resultados, entorno y límites. El código fuente no contiene cachés de compilación ni binarios de distribución; descarga los paquetes desde Releases del repositorio privado.
+Los registros originales de pruebas, compilación y capturas son generados por herramientas. Se conserva la salida y se sustituyen las rutas locales del proyecto por `<project>`; no se presentan traducciones como pruebas originales. Las 16 versiones de este documento explican los mismos resultados, entorno y límites. El código fuente no contiene cachés de compilación ni binarios de distribución; descarga los paquetes desde Releases del repositorio.

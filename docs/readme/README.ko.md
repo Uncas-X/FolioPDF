@@ -4,13 +4,13 @@
 [简体中文](../../README.md) · [English](README.en.md) · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · **한국어** · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Türkçe](README.tr.md) · [Nederlands](README.nl.md) · [Polski](README.pl.md)
 <!-- languages:end -->
 
-이미지를 책으로 묶고 PDF 책갈피를 편집하는 네이티브 macOS 앱입니다. FreePic2Pdf의 제품 요구 사항을 바탕으로 새로 구현했으며, 독자적인 SwiftUI 인터페이스와 Apple 시스템 프레임워크를 사용합니다. 타사 런타임이나 네트워크 업로드가 없고 API Key를 설정할 필요도 없습니다.
+이미지를 책으로 묶고 PDF 책갈피를 편집하는 네이티브 macOS 앱입니다. FolioPDF는 독자적으로 설계한 SwiftUI 인터페이스와 Apple 시스템 프레임워크를 사용합니다. 타사 런타임이나 네트워크 업로드가 없고 API Key를 설정할 필요도 없습니다.
 
 ## 사용하기
 
-[GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest)에서 `FolioPDF-1.3-macOS.zip`을 다운로드하고 압축을 푼 뒤 `FolioPDF.app`을 엽니다. 앱을 “응용 프로그램” 폴더로 드래그해도 됩니다. **macOS 14 이상**이 필요합니다. 로컬에서 빌드한 앱은 `dist/FolioPDF.app`에 있습니다.
+[GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest)에서 `FolioPDF-1.4-macOS.zip`을 다운로드하고 압축을 푼 뒤 `FolioPDF.app`을 엽니다. 앱을 “응용 프로그램” 폴더로 드래그해도 됩니다. **macOS 14 이상**이 필요합니다. 로컬에서 빌드한 앱은 `dist/FolioPDF.app`에 있습니다.
 
-1.3 버전 배포 파일은 `FolioPDF-1.3-macOS.zip`과 `FolioPDF-1.3-source.zip`이며, ZIP 안의 앱 이름은 항상 `FolioPDF.app`입니다. [검증 기록](../validation/VALIDATION.ko.md)에 검증 상태, 실행 환경, 실제 인터페이스 스크린샷이 정리되어 있습니다. 소스 저장소에는 빌드 캐시나 앱 바이너리가 포함되지 않으며, 설치 패키지는 Releases에서 제공합니다.
+1.4 버전 배포 파일은 `FolioPDF-1.4-macOS.zip`과 `FolioPDF-1.4-source.zip`이며, ZIP 안의 앱 이름은 항상 `FolioPDF.app`입니다. [검증 기록](../validation/VALIDATION.ko.md)에 검증 상태, 실행 환경, 실제 인터페이스 스크린샷이 정리되어 있습니다. 소스 저장소에는 빌드 캐시나 앱 바이너리가 포함되지 않으며, 설치 패키지는 Releases에서 제공합니다.
 
 1. “PDF 만들기”에서 이미지를 추가하거나 파일을 드래그하여 넣거나, 하나 이상의 폴더를 추가합니다. 하위 폴더를 포함하는 옵션은 오른쪽 설정에 있으며, 가져오기 전에 선택해야 합니다.
 2. 이미지를 클릭하여 선택하고 Command 키를 누른 채 클릭하여 여러 개를 선택합니다. 다른 이미지 위로 드래그하거나 하단의 앞으로/뒤로 이동 버튼으로 순서를 바꿉니다. 이미지를 두 번 클릭하면 미리 보기가 열립니다. 축소판과 목록 보기를 전환할 수 있습니다.
@@ -47,7 +47,7 @@
 
 | 기능 | 구현 내용 |
 |---|---|
-| 이미지 입력 | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 등 ImageIO가 디코딩할 수 있는 형식과 현재 시스템이 추가로 지원하는 확장자를 동적으로 검색합니다. RAW 지원은 로컬 시스템 디코더에 따라 달라지며 모든 카메라 모델을 보장하지 않습니다 |
+| 이미지 입력 | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000, JPEG XL(`.jxl`) 등 ImageIO가 디코딩할 수 있는 형식을 지원합니다. JPEG XL은 macOS 14 이상의 네이티브 ImageIO 디코딩을 사용합니다. 현재 시스템이 추가로 지원하는 확장자도 동적으로 검색합니다. RAW 지원은 로컬 시스템 디코더에 따라 달라지며 모든 카메라 모델을 보장하지 않습니다 |
 | 파일 정리 | 중복 제거, 파일 이름/끝자리 숫자 정렬, 수동 순서, 일반적인 전자책 접두어 정렬, 하위 폴더 탐색, 최상위 폴더 포함 여부 |
 | 일괄 출력 | 하나의 PDF로 합치기, 원본 파일당 PDF 하나, 바로 위 상위 폴더당 PDF 하나를 지원합니다. 더 깊은 폴더는 각각 묶으며, 하위 폴더의 이미지를 상위 폴더에 중복 집계하지 않습니다 |
 | 페이지 | 원본 이미지 크기, 고정 너비, A3/A4/A5/B5/Letter/Legal, 밀리미터 단위 사용자 지정 크기, 가로 방향, 네 방향 여백, 작은 이미지 확대, DPI 메타데이터 우선 적용 |
@@ -57,18 +57,20 @@
 | 문서 속성 | 제목, 작성자, 주제, 키워드와 한 페이지/연속/두 페이지 읽기 레이아웃 |
 | PDF 암호화 | 네이티브 PDFKit AES-128을 사용하며 열기 암호, 편집 암호, 두 암호 동시 사용을 지원합니다. 열기 암호만 설정하면 무작위 owner 암호를 생성하고, 편집 암호를 설정하면 그 암호에 owner 전체 권한을 부여합니다. 선택한 모드에 맞게 잠금 상태, 암호, reader/owner 권한, 페이지 수를 검증한 뒤에만 최종 파일을 저장합니다. 실패 시 암호화되지 않은 대체 파일을 출력하지 않습니다. 앱 내 미리 보기에서 암호를 입력할 수 있습니다 |
 | 책갈피 | 원본 파일의 자동 책갈피, 다단계 목차, 페이지 번호, 기준 페이지 환산, 편집 가능한 텍스트와 JSON, 네이티브 PDF 이동 미리 보기 |
-| 인터페이스 호환 | `FreePic2Pdf.itf`와 `FreePic2Pdf_bkmk.txt`, UTF-8/UTF-16LE 및 관련 레거시 인코딩, 목차/본문 구간별 페이지 번호, 메타데이터, 검색 가능한 텍스트 페이지 추가, 책갈피 표시 설정 |
+| 책갈피 인터페이스 파일 | 범용 ITF(`.itf`) 및 `TXT` 책갈피 인터페이스 파일, UTF-8/UTF-16LE 및 관련 레거시 인코딩, 목차/본문 구간별 페이지 번호, 메타데이터, 검색 가능한 텍스트 페이지 추가, 책갈피 표시 설정 |
 | 안정성 | 백그라운드 작업, 페이지별 이미지 메모리 해제, 진행률, 취소, 로그, 임시 파일과 원자적 최종 저장, 이름 중복 시 자동 번호 부여, 일괄 작업 도중 실패하면 완료된 결과를 보존하고 목록으로 표시 |
 
-### 기존 버전과의 명확한 차이
+JPEG XL은 정적 손실 압축, 무손실 압축, 투명 및 16비트 회색조 이미지의 가져오기, 썸네일 생성, 미리보기와 PDF 변환을 지원합니다. 애니메이션 JXL은 시스템이 디코딩할 수 있는 첫 프레임만 보장하며, 전체 프레임을 순서대로 가져오는 것은 보장하지 않습니다. 현재 검증 환경의 ImageIO는 첫 프레임만 반환합니다. 앱은 JXL 인코딩 출력을 제공하지 않으며, 원본 JXL 비트스트림, HDR 또는 높은 비트 심도 정보가 PDF에 그대로 보존된다고 보장하지 않습니다.
 
-- OCR에는 MODI 대신 Apple Vision을 사용하므로 Office/Windows가 필요하지 않습니다. 기존 버전의 도표 정리, CJK 글꼴, 글자별/줄별 스위치는 제공하지 않습니다.
-- 현재 압축 옵션은 무손실과 JPEG입니다. JBIG2, CCITT G4, JPEG 2000 인코더를 재구현하지 않았습니다. 주요 기능은 사용할 수 있지만, 방대한 흑백 책의 최종 용량은 JBIG2 전용 도구보다 클 수 있습니다.
-- 원래 프로그램의 “OCR 텍스트 표시/숨기기, 스캔 이미지 실제 삭제” 교정 도구는 제공하지 않습니다. 이미지 복원이나 완전한 PDF 내용 편집기도 제공하지 않습니다.
+### 현재 제한 사항
+
+- OCR은 로컬 Apple Vision을 사용하므로 Office나 Windows가 필요하지 않습니다. 도표 정리, 전용 CJK 글꼴 설정, 글자별/줄별 스위치는 제공하지 않습니다.
+- 현재 압축 옵션은 무손실과 JPEG입니다. JBIG2, CCITT G4, JPEG 2000 인코딩은 지원하지 않습니다. 주요 기능은 사용할 수 있지만, 방대한 흑백 책의 최종 용량은 JBIG2 전용 도구보다 클 수 있습니다.
+- OCR 텍스트 표시/숨기기 또는 스캔 이미지 실제 삭제를 위한 교정 도구는 제공하지 않습니다. 이미지 복원이나 완전한 PDF 내용 편집기도 제공하지 않습니다.
 - 호환 인터페이스의 `[Images]` 다중 레이어 조합과 `MinWidth`는 아직 구현되지 않았습니다. 발견되면 안내를 표시하며 적용했다고 주장하지 않습니다. 수동 파일 순서가 인터페이스의 절대 페이지 번호와 맞지 않으면 사용자가 목차 이동 위치를 확인해야 합니다.
 - 일반적인 문서 내 페이지 번호, 일부 표준 명명 동작, URL 대상은 사용할 수 있습니다. PDFKit이 안정적으로 저장하지 못하는 외부 PDF 대상, 해석할 수 없는 명명/특수 대상은 명확하게 표시하고 알림 없이 저장되지 않도록 막습니다. 편집기에서 유효한 문서 내 페이지 번호로 바꿀 수 있습니다. JSON/TXT는 대상 데이터를 보존할 수 있습니다. 암호화된 PDF의 책갈피 편집은 지원하지 않습니다.
 - 암호화할 때 책갈피, OCR 텍스트, 메타데이터, 읽기 레이아웃, 일반적인 구간별 페이지 번호를 보존합니다. 네이티브 PDFKit은 페이지 레이블을 보존하지 않으므로, 앱은 텍스트 접두어가 없는 페이지 레이블만 안전하게 복원합니다. 사용자 지정 텍스트 접두어가 포함된 인터페이스 파일은 암호화 내보내기를 명시적으로 차단합니다. 접두어를 제거하거나 암호화를 꺼야 합니다.
-- “전자책 순서”는 일반적인 접두어 그룹인 cov, bok, leg, fow, !, toc, 숫자 본문, att, ins, bac 순으로 정렬하고 나머지는 뒤에 배치합니다. 기존 프로그램의 공개되지 않은 규칙과 완전히 같다고 주장하지 않습니다.
+- “전자책 순서”는 일반적인 접두어 그룹인 cov, bok, leg, fow, !, toc, 숫자 본문, att, ins, bac 순으로 정렬하고 나머지는 뒤에 배치합니다.
 - 중단하거나 오류가 발생하면 일괄 작업에서 이미 생성한 PDF는 보존하고 현재 미완성 임시 PDF는 삭제합니다. 중단 지점부터 이어서 처리하는 기능은 없습니다.
 
 ## 개발 및 빌드
@@ -107,8 +109,8 @@ dist/                   실행 가능한 .app 및 배포 ZIP(빌드 시 생성)
 
 ## 문서 언어
 
-README와 검증 기록은 모두 인터페이스와 같은 16개 언어로 제공되며, 문서 상단의 언어 링크로 전환할 수 있습니다. 기능 설명, 암호 제한, 알려진 차이, 빌드 단계는 모든 언어에서 동일하게 유지됩니다. 테스트, 빌드, 창 스크린샷 로그는 기계가 생성한 원본 증거이므로 도구의 원문을 유지합니다. 이에 대한 설명은 검증 기록에서 다국어로 제공합니다.
+README와 검증 기록은 모두 인터페이스와 같은 16개 언어로 제공되며, 문서 상단의 언어 링크로 전환할 수 있습니다. 기능 설명, 암호 제한, 알려진 제한 사항, 빌드 단계는 모든 언어에서 동일하게 유지됩니다. 테스트, 빌드, 창 스크린샷 로그는 기계가 생성한 원본 증거이므로 도구의 원문을 유지합니다. 이에 대한 설명은 검증 기록에서 다국어로 제공합니다.
 
 ## 기술적 근거
 
-Apple의 [Vision 언어 감지 인터페이스](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit 문서 속성](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes), [ImageIO JPEG 품질 매개변수](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality)를 사용하며, 로컬 SDK 선언과 실제 파일 테스트로 구현을 검증합니다. 원래 FreePic2Pdf 프로그램, 아이콘, 기존 인터페이스를 복제하지 않았습니다.
+Apple의 [Vision 언어 감지 인터페이스](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit 문서 속성](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes), [ImageIO JPEG 품질 매개변수](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality)를 사용하며, 로컬 SDK 선언과 실제 파일 테스트로 구현을 검증합니다. FolioPDF는 독자적인 인터페이스 설계와 네이티브 시스템 프레임워크를 결합합니다.

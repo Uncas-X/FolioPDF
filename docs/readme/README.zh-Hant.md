@@ -4,13 +4,13 @@
 [简体中文](../../README.md) · [English](README.en.md) · **繁體中文** · [日本語](README.ja.md) · [한국어](README.ko.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Türkçe](README.tr.md) · [Nederlands](README.nl.md) · [Polski](README.pl.md)
 <!-- languages:end -->
 
-一款原生 macOS 圖片製書與 PDF 書籤編輯應用程式。根據 FreePic2Pdf 的產品需求重新實作，採用獨立的 SwiftUI 介面設計和 Apple 系統框架，無第三方執行環境、無網路上傳、不需設定 API Key。
+一款原生 macOS 圖片製書與 PDF 書籤編輯應用程式。FolioPDF 採用獨立設計的 SwiftUI 介面和 Apple 系統框架，無第三方執行環境、無網路上傳、不需設定 API Key。
 
 ## 使用
 
-從 [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) 下載 `FolioPDF-1.3-macOS.zip`，解壓後開啟 `FolioPDF.app`，也可將它拖到“應用程式”資料夾。系統要求 **macOS 14 或以上**。本機建置的應用程式位於 `dist/FolioPDF.app`。
+從 [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) 下載 `FolioPDF-1.4-macOS.zip`，解壓後開啟 `FolioPDF.app`，也可將它拖到“應用程式”資料夾。系統要求 **macOS 14 或以上**。本機建置的應用程式位於 `dist/FolioPDF.app`。
 
-1.3 版封裝產物為 `FolioPDF-1.3-macOS.zip` 與 `FolioPDF-1.3-source.zip`，ZIP 內的應用程式始終命名為 `FolioPDF.app`。[驗證記錄](../validation/VALIDATION.zh-Hant.md)列出了驗證狀態、執行環境和實際介面截圖。原始碼儲存庫不包含建置快取或應用程式二進位檔，安裝包在 Releases 中提供。
+1.4 版封裝產物為 `FolioPDF-1.4-macOS.zip` 與 `FolioPDF-1.4-source.zip`，ZIP 內的應用程式始終命名為 `FolioPDF.app`。[驗證記錄](../validation/VALIDATION.zh-Hant.md)列出了驗證狀態、執行環境和實際介面截圖。原始碼儲存庫不包含建置快取或應用程式二進位檔，安裝包在 Releases 中提供。
 
 1. 在“製作 PDF”中加入圖片、拖入檔案，或加入一個/多個資料夾。資料夾遞迴選項位於右側設定中，須在匯入前選擇。
 2. 按一下選擇圖片，Command 按一下多選；拖曳到另一張圖片上重新排序，或使用底部前移/後移按鈕。按兩下圖片預覽。可切換縮圖與清單。
@@ -47,7 +47,7 @@
 
 | 能力 | 實作說明 |
 |---|---|
-| 影像輸入 | JPEG、PNG、TIFF、GIF、BMP、HEIC/HEIF、JPEG 2000 等 ImageIO 可解碼格式；動態發現目前系統其他支援的副檔名。RAW 支援由本機系統解碼器決定，不保證所有相機型號 |
+| 影像輸入 | JPEG、PNG、TIFF、GIF、BMP、HEIC/HEIF、JPEG 2000、JPEG XL（`.jxl`）等 ImageIO 可解碼格式；JPEG XL 使用 macOS 14 或以上版本的原生 ImageIO 解碼。動態發現目前系統其他支援的副檔名。RAW 支援由本機系統解碼器決定，不保證所有相機型號 |
 | 檔案組織 | 去重、檔名/末尾數字排序、手動順序、常見電子書前綴排序、資料夾遞迴、是否包括最上層目錄 |
 | 批次輸出 | 合併一個 PDF、每來源檔案一個 PDF、每直接上層目錄一個 PDF；深層目錄分別分組，不把子目錄中的圖片重複計入上層目錄 |
 | 頁面 | 原始圖片大小、固定寬度、A3/A4/A5/B5/Letter/Legal、自訂毫米尺寸、橫向、四邊留白、小圖放大、DPI 中繼資料優先 |
@@ -57,18 +57,20 @@
 | 文件屬性 | 標題、作者、主題、關鍵詞；單頁/連續/雙頁閱讀版面配置 |
 | PDF加密 | 原生 PDFKit AES-128，支援獨立開啟密碼、編輯密碼及雙密碼。只設定開啟密碼時產生隨機 owner 密碼；設定編輯密碼時以該密碼授予 owner 全權限。按所選模式核驗鎖定狀態、密碼、reader/owner 權限和頁數後才發佈；失敗不輸出未加密替代檔案。應用程式內預覽支援輸入密碼 |
 | 書籤 | 自動來源檔案書籤、多級目錄、頁碼、基準頁換算、可編輯文字及 JSON、原生 PDF 跳轉預覽 |
-| 介接相容 | `FreePic2Pdf.itf` 與 `FreePic2Pdf_bkmk.txt`，UTF-8/UTF-16LE 及相關舊式編碼；目錄/正文分段頁碼、中繼資料、追加可搜尋文字頁、書籤顯示設定 |
+| 書籤介接檔案 | 通用 ITF（`.itf`）與 `TXT` 書籤介接檔案，UTF-8/UTF-16LE 及相關舊式編碼；目錄/正文分段頁碼、中繼資料、追加可搜尋文字頁、書籤顯示設定 |
 | 穩定性 | 背景工作、逐頁釋放影像、工作進度、取消、記錄、暫存檔案和原子發佈、重名自動編號、批次中途失敗保留並列出已完成結果 |
 
-### 與舊版的明確差異
+JPEG XL 支援靜態有損、無損、透明及 16 位元灰階影像的匯入、縮圖、預覽與 PDF 轉換。動畫 JXL 僅保證系統可解碼的第一影格，不保證完整逐影格匯入；目前驗證環境的 ImageIO 只傳回第一影格。應用程式不提供 JXL 編碼輸出，也不承諾原始 JXL 編碼串流、HDR 或高位元深度資訊在 PDF 中原樣保留。
 
-- OCR 使用 Apple Vision，替代 MODI，不需要 Office/Windows，也不沿用舊版圖表清理、CJK 字型或逐字/逐行開關。
-- 目前壓縮選項為無損與 JPEG；沒有重製 JBIG2、CCITT G4 或 JPEG 2000 編碼器。核心功能可用，但大型黑白書籍的最終體積可能大於專用 JBIG2 工具。
-- 不提供原軟體的“顯示/隱藏 OCR 文字、實際刪除掃描影像”校對工具，也不提供影像修復或完整 PDF 內容編輯器。
+### 目前限制
+
+- OCR 使用本機 Apple Vision，不需要 Office 或 Windows；不提供圖表清理、專用 CJK 字型控制或逐字/逐行開關。
+- 目前壓縮選項為無損與 JPEG；不提供 JBIG2、CCITT G4 或 JPEG 2000 編碼。核心功能可用，但大型黑白書籍的最終體積可能大於專用 JBIG2 工具。
+- 不提供顯示/隱藏 OCR 文字或實際刪除掃描影像的校對工具，也不提供影像修復或完整 PDF 內容編輯器。
 - 相容介接中的 `[Images]` 多圖層組裝、`MinWidth` 尚未實作；偵測到時會顯示說明，不會聲稱已經套用。手動檔案順序若與介接絕對頁碼不一致，使用者須核對目錄定位。
 - 一般本文件頁碼、部分標準命名動作與 URL 目標可用。PDFKit 不能可靠儲存的外部 PDF 目標、無法解析的命名/特殊目標會被明確標出並阻止靜默儲存；可在編輯器中改為有效本文件頁碼。JSON/TXT 可保留目標資料。加密 PDF 不提供書籤編輯。
 - 加密保留書籤、OCR 文字、中繼資料、閱讀版面配置與一般分段頁碼。原生 PDFKit 不保留頁碼標籤，本應用程式僅安全補回不含文字前綴的頁碼標籤；含自訂文字前綴的介接檔案會明確阻止加密匯出，須去掉前綴或關閉加密。
-- “電子書順序”實作常見前綴組：cov、bok、leg、fow、!、toc、數字正文、att、ins、bac，其餘置後；不聲稱與舊軟體未公開規則完全相同。
+- “電子書順序”使用常見前綴組：cov、bok、leg、fow、!、toc、數字正文、att、ins、bac，其餘置後。
 - 中止或錯誤時，批次已經產生的 PDF 會保留，目前未完成的暫存 PDF 清除；不提供從中斷處續作。
 
 ## 開發與建置
@@ -107,8 +109,8 @@ dist/                   可執行 .app 與分發 ZIP（建置產生）
 
 ## 文件語言
 
-README 與驗證記錄均提供與介面一致的 16 種語言，可透過文件頂部的語言連結切換。功能說明、密碼限制、已知差異和建置步驟在各語言版本中保持一致。測試、建置和視窗截圖記錄屬於機器產生的原始證據，保留工具原文；對應說明在驗證記錄中提供多語言版本。
+README 與驗證記錄均提供與介面一致的 16 種語言，可透過文件頂部的語言連結切換。功能說明、密碼限制、已知限制和建置步驟在各語言版本中保持一致。測試、建置和視窗截圖記錄屬於機器產生的原始證據，保留工具原文；對應說明在驗證記錄中提供多語言版本。
 
 ## 技術依據
 
-使用 Apple 的 [Vision 語言偵測介接](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage)、[PDFKit 文件屬性](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) 和 [ImageIO JPEG 品質參數](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality)，同時以本機 SDK 聲明和實際檔案測試驗證實作。沒有複製原 FreePic2Pdf 程式、圖示或舊介面。
+使用 Apple 的 [Vision 語言偵測介接](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage)、[PDFKit 文件屬性](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) 和 [ImageIO JPEG 品質參數](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality)，同時以本機 SDK 聲明和實際檔案測試驗證實作。FolioPDF 將獨立設計的介面與原生系統框架結合。

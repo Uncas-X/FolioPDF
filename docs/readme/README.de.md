@@ -4,13 +4,13 @@
 [简体中文](../../README.md) · [English](README.en.md) · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Français](README.fr.md) · **Deutsch** · [Español](README.es.md) · [Italiano](README.it.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Türkçe](README.tr.md) · [Nederlands](README.nl.md) · [Polski](README.pl.md)
 <!-- languages:end -->
 
-Eine native macOS-App zum Erstellen von PDF-Büchern aus Bildern und zum Bearbeiten von PDF-Lesezeichen. Sie setzt die Produktanforderungen von FreePic2Pdf neu um, mit einer eigenständig gestalteten SwiftUI-Oberfläche und Apple-Systemframeworks. Keine Laufzeitumgebung von Drittanbietern, keine Uploads ins Netzwerk und kein API-Schlüssel erforderlich.
+Eine native macOS-App zum Erstellen von PDF-Büchern aus Bildern und zum Bearbeiten von PDF-Lesezeichen. FolioPDF verwendet eine eigenständig gestaltete SwiftUI-Oberfläche und Apple-Systemframeworks. Keine Laufzeitumgebung von Drittanbietern, keine Uploads ins Netzwerk und kein API-Schlüssel erforderlich.
 
 ## Verwendung
 
-Laden Sie `FolioPDF-1.3-macOS.zip` von [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) herunter, entpacken Sie die Datei und öffnen Sie `FolioPDF.app`. Sie können die App auch in den Ordner „Programme“ ziehen. Erforderlich ist **macOS 14 oder neuer**. Ein lokal gebautes Programm liegt unter `dist/FolioPDF.app`.
+Laden Sie `FolioPDF-1.4-macOS.zip` von [GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) herunter, entpacken Sie die Datei und öffnen Sie `FolioPDF.app`. Sie können die App auch in den Ordner „Programme“ ziehen. Erforderlich ist **macOS 14 oder neuer**. Ein lokal gebautes Programm liegt unter `dist/FolioPDF.app`.
 
-Die Pakete für Version 1.3 heißen `FolioPDF-1.3-macOS.zip` und `FolioPDF-1.3-source.zip`; die Anwendung im ZIP heißt immer `FolioPDF.app`. Der [Validierungsbericht](../validation/VALIDATION.de.md) enthält den Prüfstatus, die Laufzeitumgebung und Aufnahmen der tatsächlichen Oberfläche. Das Quellcode-Repository enthält weder Build-Caches noch Anwendungsbinärdateien; Installationspakete sind unter Releases verfügbar.
+Die Pakete für Version 1.4 heißen `FolioPDF-1.4-macOS.zip` und `FolioPDF-1.4-source.zip`; die Anwendung im ZIP heißt immer `FolioPDF.app`. Der [Validierungsbericht](../validation/VALIDATION.de.md) enthält den Prüfstatus, die Laufzeitumgebung und Aufnahmen der tatsächlichen Oberfläche. Das Quellcode-Repository enthält weder Build-Caches noch Anwendungsbinärdateien; Installationspakete sind unter Releases verfügbar.
 
 1. Fügen Sie im Arbeitsbereich „PDF erstellen“ Bilder hinzu, ziehen Sie Dateien hinein oder wählen Sie einen oder mehrere Ordner. Die rekursive Ordnersuche wird rechts in den Einstellungen vor dem Import aktiviert.
 2. Klicken Sie auf ein Bild, um es auszuwählen; mit gedrückter Command-Taste wählen Sie mehrere aus. Ziehen Sie ein Bild auf ein anderes, um die Reihenfolge zu ändern, oder verwenden Sie unten die Schaltflächen zum Vor- und Zurückverschieben. Ein Doppelklick öffnet die Vorschau. Sie können zwischen Miniaturansicht und Liste wechseln.
@@ -47,7 +47,7 @@ Arabisch verwendet eine Oberfläche von rechts nach links. Bilder und PDF-Inhalt
 
 | Funktion | Umsetzung |
 |---|---|
-| Bildeingabe | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 und andere von ImageIO lesbare Formate; weitere vom aktuellen System unterstützte Dateiendungen werden dynamisch ermittelt. RAW-Unterstützung hängt vom lokalen Systemdecoder ab; nicht alle Kameramodelle sind garantiert |
+| Bildeingabe | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000, JPEG XL (`.jxl`) und andere von ImageIO lesbare Formate. JPEG XL verwendet die native ImageIO-Dekodierung unter macOS 14 oder neuer. Weitere vom aktuellen System unterstützte Dateiendungen werden dynamisch ermittelt. RAW-Unterstützung hängt vom lokalen Systemdecoder ab; nicht alle Kameramodelle sind garantiert |
 | Dateiorganisation | Duplikaterkennung, Sortierung nach Dateiname oder abschließender Zahl, manuelle Reihenfolge, gängige E-Book-Präfixe, rekursive Ordnersuche und optionales Einbeziehen des obersten Ordners |
 | Stapelausgabe | Eine gemeinsame PDF, eine PDF pro Quelldatei oder pro direktem übergeordnetem Ordner. Tiefere Ordner werden getrennt gruppiert; Bilder aus Unterordnern werden nicht erneut dem übergeordneten Ordner zugerechnet |
 | Seiten | Originalbildgröße, feste Breite, A3/A4/A5/B5/Letter/Legal, eigene Maße in Millimetern, Querformat, vier Seitenränder, Vergrößerung kleiner Bilder und bevorzugte DPI-Metadaten |
@@ -57,18 +57,20 @@ Arabisch verwendet eine Oberfläche von rechts nach links. Bilder und PDF-Inhalt
 | Dokumenteigenschaften | Titel, Autor, Thema und Schlüsselwörter; Einzelseiten-, fortlaufende oder Doppelseitenansicht |
 | PDF-Verschlüsselung | Natives PDFKit AES-128 mit separatem Öffnungs- oder Bearbeitungspasswort oder beiden. Bei ausschließlichem Öffnungspasswort wird ein zufälliges owner-Passwort erzeugt; andernfalls gewährt das Bearbeitungspasswort volle owner-Rechte. Erst nach Prüfung von Sperrstatus, Passwörtern, reader-/owner-Rechten und Seitenzahl für den gewählten Modus wird die Datei veröffentlicht. Bei Fehlern wird keine unverschlüsselte Ersatzdatei ausgegeben. Die Vorschau in der App unterstützt die Passworteingabe |
 | Lesezeichen | Automatische Lesezeichen für Quelldateien, mehrstufige Gliederung, Seitenzahlen, Umrechnung der Basisseite, bearbeitbarer Text und JSON sowie native Vorschau von PDF-Sprungzielen |
-| Schnittstellenkompatibilität | `FreePic2Pdf.itf` und `FreePic2Pdf_bkmk.txt`, UTF-8/UTF-16LE und entsprechende ältere Kodierungen; getrennte Seitennummerierungsabschnitte für Inhaltsverzeichnis und Haupttext, Metadaten, angehängte durchsuchbare Textseiten und Anzeigeeinstellungen für Lesezeichen |
+| Lesezeichen-Schnittstellendateien | Allgemeine ITF- (`.itf`) und `TXT`-Schnittstellendateien für Lesezeichen, UTF-8/UTF-16LE und entsprechende ältere Kodierungen; getrennte Seitennummerierungsabschnitte für Inhaltsverzeichnis und Haupttext, Metadaten, angehängte durchsuchbare Textseiten und Anzeigeeinstellungen für Lesezeichen |
 | Zuverlässigkeit | Hintergrundaufgaben, seitenweise Freigabe von Bildern, Fortschritt, Abbruch, Protokolle, temporäre Dateien und atomare Veröffentlichung, automatische Nummerierung bei Namenskonflikten sowie Erhalt und Auflistung fertiger Ergebnisse bei Stapelfehlern |
 
-### Bewusste Unterschiede zur ursprünglichen Software
+JPEG XL unterstützt den Import statischer verlustbehafteter, verlustfreier, transparenter und 16-Bit-Graustufenbilder sowie deren Miniaturen, Vorschau und PDF-Konvertierung. Bei animiertem JXL wird nur das erste vom System dekodierbare Bild garantiert; ein vollständiger Import aller Einzelbilder ist nicht gewährleistet. ImageIO liefert in der aktuellen Prüfumgebung nur das erste Bild zurück. Die App bietet keine JXL-Kodierung als Ausgabe und garantiert nicht, dass der ursprüngliche JXL-Bitstrom, HDR-Informationen oder Informationen mit hoher Bittiefe unverändert in der PDF erhalten bleiben.
 
-- OCR verwendet Apple Vision statt MODI und benötigt weder Office noch Windows. Die frühere Diagrammbereinigung, CJK-Schriften und Wort-/Zeilen-Schalter werden nicht übernommen.
-- Die Komprimierung bietet derzeit verlustfrei und JPEG. JBIG2-, CCITT-G4- und JPEG-2000-Encoder wurden nicht nachgebildet. Die Kernfunktionen sind verfügbar, große Schwarzweißbücher können jedoch größer ausfallen als mit spezialisierten JBIG2-Werkzeugen.
-- Die früheren Korrekturwerkzeuge zum Ein-/Ausblenden von OCR-Text oder zum physischen Löschen gescannter Bilder sind nicht enthalten. Ebenso wenig gibt es Bildrestaurierung oder einen vollständigen PDF-Inhaltseditor.
+### Aktuelle Einschränkungen
+
+- OCR verwendet Apple Vision lokal und benötigt weder Office noch Windows. Diagrammbereinigung, spezielle CJK-Schrifteinstellungen und Wort-/Zeilen-Schalter sind nicht verfügbar.
+- Die Komprimierung bietet derzeit verlustfrei und JPEG. JBIG2-, CCITT-G4- und JPEG-2000-Kodierung ist nicht verfügbar. Die Kernfunktionen sind verfügbar, große Schwarzweißbücher können jedoch größer ausfallen als mit spezialisierten JBIG2-Werkzeugen.
+- Korrekturwerkzeuge zum Ein-/Ausblenden von OCR-Text oder zum physischen Löschen gescannter Bilder sind nicht enthalten. Ebenso wenig gibt es Bildrestaurierung oder einen vollständigen PDF-Inhaltseditor.
 - Mehrschichtige Zusammenstellung über `[Images]` und `MinWidth` sind in der kompatiblen Schnittstelle noch nicht umgesetzt. Beim Erkennen erscheint ein Hinweis; die App behauptet nicht, diese Einstellungen angewendet zu haben. Weicht die manuelle Dateireihenfolge von absoluten Schnittstellenseitenzahlen ab, müssen die Gliederungsziele überprüft werden.
 - Normale lokale Seitenziele, einige standardisierte benannte Aktionen und URL-Ziele werden unterstützt. Externe PDF-Ziele, die PDFKit nicht zuverlässig speichern kann, sowie unauflösbare benannte oder spezielle Ziele werden ausdrücklich markiert; stilles Speichern ist blockiert. Sie können im Editor in gültige lokale Seitenziele geändert werden. JSON/TXT können Zieldaten erhalten. Lesezeichen verschlüsselter PDFs lassen sich nicht bearbeiten.
 - Verschlüsselung erhält Lesezeichen, OCR-Text, Metadaten, Leselayout und gewöhnliche abschnittsweise Seitennummerierung. Natives PDFKit erhält Seitenlabels nicht; die App ergänzt ausschließlich Labels ohne Textpräfix sicher wieder. Schnittstellendateien mit eigenen Textpräfixen verhindern den verschlüsselten Export ausdrücklich. Entfernen Sie die Präfixe oder deaktivieren Sie die Verschlüsselung.
-- Die E-Book-Reihenfolge verwendet gängige Präfixgruppen: cov, bok, leg, fow, !, toc, numerischer Haupttext, att, ins, bac; andere folgen danach. Eine vollständige Übereinstimmung mit unveröffentlichten Regeln der Originalsoftware wird nicht behauptet.
+- Die E-Book-Reihenfolge verwendet gängige Präfixgruppen: cov, bok, leg, fow, !, toc, numerischer Haupttext, att, ins, bac; andere folgen danach.
 - Bei Abbruch oder Fehler bleiben bereits erzeugte PDFs des Stapels erhalten; die aktuelle unfertige temporäre PDF wird entfernt. Eine Fortsetzung an einem gespeicherten Zwischenstand gibt es nicht.
 
 ## Entwicklung und Build
@@ -107,8 +109,8 @@ dist/                   Ausführbare .app und Vertriebs-ZIPs (beim Build erzeugt
 
 ## Dokumentationssprachen
 
-README und Validierungsbericht sind in denselben 16 Sprachen wie die Oberfläche verfügbar. Die Sprachlinks am Dokumentanfang ermöglichen den Wechsel. Funktionsbeschreibungen, Passwortgrenzen, bekannte Unterschiede und Build-Schritte stimmen in allen Sprachversionen überein. Test-, Build- und Fensteraufnahmeprotokolle sind maschinell erzeugte Originalbelege und bleiben in der Sprache der Werkzeuge. Die Erläuterungen im Validierungsbericht sind mehrsprachig.
+README und Validierungsbericht sind in denselben 16 Sprachen wie die Oberfläche verfügbar. Die Sprachlinks am Dokumentanfang ermöglichen den Wechsel. Funktionsbeschreibungen, Passwortgrenzen, bekannte Einschränkungen und Build-Schritte stimmen in allen Sprachversionen überein. Test-, Build- und Fensteraufnahmeprotokolle sind maschinell erzeugte Originalbelege und bleiben in der Sprache der Werkzeuge. Die Erläuterungen im Validierungsbericht sind mehrsprachig.
 
 ## Technische Grundlagen
 
-Die App verwendet Apples [Vision-Schnittstelle zur Spracherkennung](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit-Dokumentattribute](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) und [ImageIO-Parameter für JPEG-Qualität](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality). Die Umsetzung wird zusätzlich anhand des lokalen SDK und tatsächlicher Dateitests geprüft. Das ursprüngliche FreePic2Pdf-Programm, seine Symbole und seine Oberfläche wurden nicht kopiert.
+Die App verwendet Apples [Vision-Schnittstelle zur Spracherkennung](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit-Dokumentattribute](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) und [ImageIO-Parameter für JPEG-Qualität](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality). Die Umsetzung wird zusätzlich anhand des lokalen SDK und tatsächlicher Dateitests geprüft. FolioPDF verbindet eine eigenständig gestaltete Oberfläche mit nativen Systemframeworks.

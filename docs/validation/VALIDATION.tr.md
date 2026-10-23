@@ -1,4 +1,4 @@
-# FolioPDF 1.3 Doğrulama Kaydı
+# FolioPDF 1.4 Doğrulama Kaydı
 
 <!-- languages:start -->
 [简体中文](../VALIDATION.md) · [English](VALIDATION.en.md) · [繁體中文](VALIDATION.zh-Hant.md) · [日本語](VALIDATION.ja.md) · [한국어](VALIDATION.ko.md) · [Français](VALIDATION.fr.md) · [Deutsch](VALIDATION.de.md) · [Español](VALIDATION.es.md) · [Italiano](VALIDATION.it.md) · [Português (Brasil)](VALIDATION.pt-BR.md) · [Русский](VALIDATION.ru.md) · [العربية](VALIDATION.ar.md) · [हिन्दी](VALIDATION.hi.md) · **Türkçe** · [Nederlands](VALIDATION.nl.md) · [Polski](VALIDATION.pl.md)
@@ -6,23 +6,24 @@
 
 Durum: **testler ve derleme başarılı**. Kayıt tarihi: 2026-10-23. Doğrulama ortamı: Intel Mac, macOS 15.7.9, Swift 6.2.4 / Xcode. En düşük dağıtım sürümü macOS 14.
 
-Bu sürümde bağımsız açma ve düzenleme parolaları eklendi; şifreleme ayarları sağ panelde varsayılan olarak daraltılmış, başlık satırının tamamı tıklanabilir bir bölüme taşındı. 50 XCTest’in tamamı çalıştırılıp geçti; 0 hata, 0 atlama. Yerel PDF yazma arayüzünün, 17–31 karakterlik açma parolalarında owner parolasını geçersiz kılabildiği doğrulandı. Uygulama, iki parolalı modda uzunluk ön kontrolüyle bu sorunu önler. Güvenlik sınırları aşağıdadır. Bu çalıştırmanın günlüğü `test-results.txt` dosyasındadır.
+Bu sürüm, macOS 14 ve üzerindeki yerel ImageIO çözümlemesiyle JPEG XL girdisi ekler; bağımsız açma ve düzenleme parolaları korunur. Şifreleme ayarları sağ paneldedir, varsayılan olarak daraltılmıştır ve tüm satır tıklanabilir. 58 XCTest’in tamamı çalıştırılıp geçti; 0 hata, 0 atlama. Yerel PDF yazma arayüzünün, 17–31 karakterlik açma parolalarında owner parolasını geçersiz kılabildiği doğrulandı. Uygulama, iki parolalı modda uzunluk ön kontrolüyle bu sorunu önler; güvenlik sınırları aşağıdadır. Bu çalıştırmanın günlüğü `test-results.txt` dosyasındadır.
 
 ## Teslim edilenler
 
 - `dist/FolioPDF.app`: yerel AppKit penceresi, SwiftUI arayüzü ve sistem PDFKit / Vision / ImageIO framework’leri. Uygulama dosya adında sürüm yoktur; sürüm uygulama meta verisindedir.
-- `dist/FolioPDF-1.3-macOS.zip`: x86_64 ve arm64 içeren evrensel uygulama paketi; `lipo -archs` ile doğrulandı.
-- `dist/FolioPDF-1.3-source.zip`: Xcode ile açılabilen Swift Package kaynak kodu; testler, betikler, kullanım belgeleri ve arayüz görüntüleri dâhil.
-- Paketleme betiği yerel ad-hoc imzalama kullanır; `codesign --verify --deep --strict` başarılıdır. Developer ID noter onayı yoktur. İç sürüm 1.3 (build 4), uygulama dosya adı hâlâ `FolioPDF.app` olarak kalır.
+- `dist/FolioPDF-1.4-macOS.zip`: x86_64 ve arm64 içeren evrensel uygulama paketi; `lipo -archs` ile doğrulandı.
+- `dist/FolioPDF-1.4-source.zip`: Xcode ile açılabilen Swift Package kaynak kodu; testler, betikler, kullanım belgeleri ve arayüz görüntüleri dâhil.
+- Paketleme betiği yerel ad-hoc imzalama kullanır; `codesign --verify --deep --strict` başarılıdır. Developer ID noter onayı yoktur. İç sürüm 1.4 (build 5), uygulama dosya adı hâlâ `FolioPDF.app` olarak kalır.
 
 ## İşlev testleri
 
-`bash scripts/test.sh` çalıştırıldı; 50 XCTest’in tamamı geçti. Ayrıntılı çıktı `test-results.txt` içindedir. Gerçek Vision OCR testleri de atlanmadan çalıştırıldı.
+`bash scripts/test.sh` çalıştırıldı; 58 XCTest’in tamamı geçti. Ayrıntılı çıktı `test-results.txt` içindedir. Gerçek Vision OCR testleri de atlanmadan çalıştırıldı.
 
 | Kapsam | Sayı | Doğrulananlar |
 |---|---:|---|
 | Kaynak keşfi ve sıralama | 3 | Sayısal sıralama, e-kitap önekleri, alt klasörler ve üst klasörü hariç tutma, yinelenen yollar |
 | PDF dönüştürme | 10 | Sayfa geometrisi ve geçersiz parametreler, EXIF yönü, çok sayfalı TIFF/GIF, meta veri ve yer imleri, klasöre göre gruplama, üzerine yazmama, toplu işlemde kısmi hata, gerçek JPEG kodlama, özgün JPEG akışını koruma, Vision gizli metni ve aranabilirlik, iptal temizliği |
+| JPEG XL girdisi | 8 | Yerel türler ve uzantı eşlemesi, klasör keşfi, kayıplı/kayıpsız RGB, RGBA saydamlığı, 16 bit gri tonlama, küçük resim ve önizleme, PDF boyutları ve çizimi, saydam/beyaz arka plan çıktısı, sistemin sunduğu karelere göre animasyon çıktısı, bozuk ve eksik dosyaların reddi |
 | Yer imleri ve arayüz dosyaları | 8 | Çok düzeyli yer imleri, BasePage dönüşümü, geçersiz hedefler, standart eylemler ve JSON, dış hedeflerin açıkça reddi, UTF-16 arayüzü ve bölümlü sayfa numaraları, kopya kaydetme, aranabilir metin sayfaları, mevcut sayfa etiketlerini koruma |
 | Yerelleştirme | 3 | 16 dil ve sıraları, kaynakların eksiksiz yüklenmesi, 18 bölgesel dil eşlemesi, bilinmeyen dilde geri dönüş, elle seçimin önceliği, yalnızca Arapça için RTL |
 | Yerel PDF şifreleme | 14 | Gerçek AESV2/128 bit sözlüğü, yalnızca açma/yalnızca düzenleme/iki parola, reader ve owner izin ayrımı, yanlış parolayla yetki yükseltmeme, farklı parola gereksinimi, rastgele owner, tek ve iki parola uzunluk sınırları, uzun açma parolasını yazmadan önce reddetme, baş/son boşlukları, Çince meta veri, yer imleri, gizli metin, normal bölümlü sayfa numaraları ve düzen, metin öneklerinin açıkça reddi, üzerine yazmama ve hata temizliği |
@@ -61,23 +62,25 @@ Açılmış bir PDF’de `unlock(withPassword:)`, owner parolası yanlış olsa 
 
 ## Doğrulama sınırları
 
-- Doğrulama makinesi Intel Mac’tir. 1.3 evrensel paketinin iki mimarisi de derlendi; henüz gerçek Apple Silicon makinede test edilmedi.
+- Doğrulama makinesi Intel Mac’tir. 1.4 evrensel paketinin iki mimarisi de derlendi; henüz gerçek Apple Silicon makinede test edilmedi.
 - En düşük dağıtım hedefi macOS 14; bu turdaki gerçek çalışma ortamı macOS 15.7.9’dur.
+- JPEG XL, yerel ImageIO ile çözülür. Kendimiz oluşturduğumuz 5 test örneği kayıplı RGB, kayıpsız RGB, RGBA saydamlığı, 16 bit gri tonlama ve animasyonu kapsar. Mevcut sistem animasyonun yalnızca ilk karesini döndürür; bu nedenle kare kare içe aktarma garanti edilmez. Uygulama JXL kodlama çıktısı sunmaz; özgün akışın, HDR veya yüksek bit derinliği bilgilerinin PDF’de değişmeden korunacağını taahhüt etmez.
 - Büyük ölçekli taranmış kitap performans ölçümü yapılmadı. Her kamera RAW biçimi veya her standart dışı PDF hedefiyle uyumluluk taahhüt edilmez.
 - Şifreleme Apple PDFKit kullanır, AESV2/128 bit çıktı gerektirir ve seçili moda göre parolaları/izinleri doğrular. Yerel yazma arayüzünün 17–31 karakterlik açma parolası sorunu owner kimlik doğrulamasını etkilediği için iki parolalı modda açma parolası 1–16 karakterle sınırlanır. Düzenleme parolası ve iki tek-parola modu ayrı ayrı 1–32 karakter destekler. Uygulama kriptografik sonuçları kendisi yamamaz; Unicode, kontrol karakterleri ve seçili modun uzunluk sınırı dışındaki girdileri reddeder. Sınır ön kontrolü, owner izinleri ve baş/son boşluklarının korunması gerçek dosyalarla test edildi. İki parolalı modda 17, 31 ve 32 karakterlik açma parolaları yazmadan önce reddedilir.
 - Özel metin önekli sayfa etiketleri mevcut yerel yolda güvenilir korunamaz; şifreleme açıkken açık hata verilir. Normal harf/Roma/rakam bölümlü sayfa numaraları, okuma düzeni ve meta veri için gidiş-dönüş testleri vardır. Açma parolası gereken dosyaların uygulama içi önizlemesinde parola girilebilir; yalnızca düzenleme parolalı dosyalar doğrudan önizlenir. Şifreli dosyalarda yer imi düzenleme hâlâ desteklenmez.
-- JBIG2/G4 kodlama, eski OCR düzeltmesi, arayüz çok katmanları ve bazı özel yer imi hedefleri dâhil eski yazılımdan farklar, proje README’sindeki “Eski sürümden açık farklar” bölümündedir.
+- JBIG2/G4 kodlama, OCR düzeltmesi, arayüz dosyalarında çok katmanlı yapı ve bazı özel yer imi hedefleriyle ilgili sınırlar, proje README’sindeki “Mevcut sınırlamalar” bölümündedir.
 
 ## Bu sürümün arayüz kayıtları
 
 | Durum | Gerçek pencere görüntüsü |
 |---|---|
+| Çince, durağan JPEG XL görüntülerinin içe aktarılması | [jpeg-xl-import-zh.png](../screenshots/jpeg-xl-import-zh.png) |
 | Çince, şifreleme bölümü varsayılan daraltılmış | [encryption-collapsed-zh.png](../screenshots/encryption-collapsed-zh.png) |
 | Çince, iki parola ayarları genişletilmiş | [encryption-inline-zh.png](../screenshots/encryption-inline-zh.png) |
 | Almanca, koyu, iki parola ayarları genişletilmiş | [encryption-inline-de-dark.png](../screenshots/encryption-inline-de-dark.png) |
 | Arapça, RTL, iki parola ayarları genişletilmiş | [encryption-inline-ar.png](../screenshots/encryption-inline-ar.png) |
 | Son evrensel uygulama, Çince, yalnızca düzenleme parolası ve kapatıp yeniden açma | [encryption-editing-only-zh.png](../screenshots/encryption-editing-only-zh.png) |
 
-Görüntüler uygulamanın kendi `NSView` çiziminden alınmıştır; başka uygulama içeriği yoktur. `build-results.txt` iki mimarili üretim derlemesini kaydeder. [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.3.0) içindeki `SHA256SUMS-1.3.txt`, dağıtım ZIP’lerinin sağlama değerlerini içerir. Eski düzen görüntüleri `screenshots/previous-layout/` konumuna taşındı; bu sürümün arayüz kabul kanıtı sayılmaz.
+Görüntüler uygulamanın kendi `NSView` çiziminden alınmıştır; başka uygulama içeriği yoktur. `build-results.txt` iki mimarili üretim derlemesini kaydeder. [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.4.0) içindeki `SHA256SUMS-1.4.txt`, dağıtım ZIP’lerinin sağlama değerlerini içerir. Eski düzen görüntüleri `screenshots/previous-layout/` konumuna taşındı; bu sürümün arayüz kabul kanıtı sayılmaz.
 
-Özgün test, derleme ve görüntü günlükleri araçlarla üretilmiştir. Çıktılar korunmuş, yerel proje yolları `<project>` ile değiştirilmiştir. Günlükler çevrilip özgün kanıt gibi sunulmaz. Bu açıklamanın 16 dildeki sürümleri aynı test sonuçlarını, ortamı ve sınırları anlatır. Kaynak sürümde derleme önbelleği veya dağıtım ikili dosyaları yoktur; paketleri özel deponun Releases bölümünden indirin.
+Özgün test, derleme ve görüntü günlükleri araçlarla üretilmiştir. Çıktılar korunmuş, yerel proje yolları `<project>` ile değiştirilmiştir. Günlükler çevrilip özgün kanıt gibi sunulmaz. Bu açıklamanın 16 dildeki sürümleri aynı test sonuçlarını, ortamı ve sınırları anlatır. Kaynak sürümde derleme önbelleği veya dağıtım ikili dosyaları yoktur; paketleri deponun Releases bölümünden indirin.

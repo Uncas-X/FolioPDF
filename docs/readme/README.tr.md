@@ -4,13 +4,13 @@
 [简体中文](../../README.md) · [English](README.en.md) · [繁體中文](README.zh-Hant.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Italiano](README.it.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · **Türkçe** · [Nederlands](README.nl.md) · [Polski](README.pl.md)
 <!-- languages:end -->
 
-Görüntülerden kitap oluşturmak ve PDF yer imlerini düzenlemek için yerel bir macOS uygulaması. FreePic2Pdf ürün gereksinimleri temel alınarak, özgün bir SwiftUI arayüzü ve Apple sistem framework’leriyle yeniden geliştirildi. Üçüncü taraf çalışma zamanı içermez, ağa dosya yüklemez ve API anahtarı gerektirmez.
+FolioPDF, görüntülerden kitap oluşturmak ve PDF yer imlerini düzenlemek için yerel bir macOS uygulamasıdır. Bağımsız tasarlanmış bir SwiftUI arayüzü ve Apple sistem framework’lerini kullanır. Üçüncü taraf çalışma zamanı içermez, ağa dosya yüklemez ve API anahtarı gerektirmez.
 
 ## Kullanım
 
-[GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) üzerinden `FolioPDF-1.3-macOS.zip` dosyasını indirin, arşivi açın ve `FolioPDF.app` uygulamasını çalıştırın. Uygulamayı “Uygulamalar” klasörüne de sürükleyebilirsiniz. **macOS 14 veya üzeri** gereklidir. Yerel olarak oluşturulan uygulama `dist/FolioPDF.app` konumundadır.
+[GitHub Releases](https://github.com/Uncas-X/FolioPDF/releases/latest) üzerinden `FolioPDF-1.4-macOS.zip` dosyasını indirin, arşivi açın ve `FolioPDF.app` uygulamasını çalıştırın. Uygulamayı “Uygulamalar” klasörüne de sürükleyebilirsiniz. **macOS 14 veya üzeri** gereklidir. Yerel olarak oluşturulan uygulama `dist/FolioPDF.app` konumundadır.
 
-1.3 sürümünün paketleri `FolioPDF-1.3-macOS.zip` ve `FolioPDF-1.3-source.zip` dosyalarıdır. ZIP içindeki uygulamanın adı her zaman `FolioPDF.app` olur. [Doğrulama kaydı](../validation/VALIDATION.tr.md), doğrulama durumunu, çalışma ortamını ve gerçek arayüz görüntülerini içerir. Kaynak kod deposunda derleme önbelleği veya uygulama ikili dosyaları bulunmaz; kurulum paketleri Releases bölümündedir.
+1.4 sürümünün paketleri `FolioPDF-1.4-macOS.zip` ve `FolioPDF-1.4-source.zip` dosyalarıdır. ZIP içindeki uygulamanın adı her zaman `FolioPDF.app` olur. [Doğrulama kaydı](../validation/VALIDATION.tr.md), doğrulama durumunu, çalışma ortamını ve gerçek arayüz görüntülerini içerir. Kaynak kod deposunda derleme önbelleği veya uygulama ikili dosyaları bulunmaz; kurulum paketleri Releases bölümündedir.
 
 1. “PDF oluştur” bölümünde görüntü ekleyin, dosyaları sürükleyin veya bir ya da birden fazla klasör ekleyin. Alt klasörlerde arama seçeneği sağdaki ayarlardadır; içe aktarmadan önce seçilmelidir.
 2. Görüntü seçmek için tıklayın; çoklu seçim için Command tuşuyla tıklayın. Sıralamayı değiştirmek için görüntüyü başka bir görüntünün üzerine sürükleyin veya alttaki ileri/geri taşıma düğmelerini kullanın. Önizleme için çift tıklayın. Küçük resim ve liste görünümleri arasında geçiş yapabilirsiniz.
@@ -47,7 +47,7 @@ Arapça arayüz sağdan sola düzen kullanır. Görüntüler ve PDF içeriği de
 
 | Özellik | Uygulama açıklaması |
 |---|---|
-| Görüntü girdisi | JPEG, PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 ve ImageIO’nun çözebildiği diğer biçimler; sistemin desteklediği diğer uzantılar dinamik olarak keşfedilir. RAW desteği yerel sistem çözücüsüne bağlıdır; tüm kamera modelleri garanti edilmez |
+| Görüntü girdisi | JPEG, JPEG XL (`.jxl`), PNG, TIFF, GIF, BMP, HEIC/HEIF, JPEG 2000 ve ImageIO’nun çözebildiği diğer biçimler. JPEG XL, macOS 14 ve üzerinde yerel ImageIO tarafından desteklenir; sistemin desteklediği diğer uzantılar dinamik olarak keşfedilir. RAW desteği yerel sistem çözücüsüne bağlıdır; tüm kamera modelleri garanti edilmez |
 | Dosya düzeni | Yinelenenleri kaldırma, dosya adı/son sayı sıralaması, elle sıralama, yaygın e-kitap önekleriyle sıralama, alt klasörleri tarama ve üst klasörü dâhil etme seçimi |
 | Toplu çıktı | Tek PDF’de birleştirme, kaynak dosya başına bir PDF veya doğrudan üst klasör başına bir PDF. Derin klasörler ayrı gruplanır; alt klasör görüntüleri üst klasöre tekrar sayılmaz |
 | Sayfa | Özgün görüntü boyutu, sabit genişlik, A3/A4/A5/B5/Letter/Legal, milimetreyle özel boyut, yatay yön, dört kenar boşluğu, küçük görüntüleri büyütme ve DPI meta verisine öncelik |
@@ -57,18 +57,20 @@ Arapça arayüz sağdan sola düzen kullanır. Görüntüler ve PDF içeriği de
 | Belge özellikleri | Başlık, yazar, konu, anahtar sözcükler; tek sayfa, sürekli veya çift sayfa okuma düzeni |
 | PDF şifreleme | Yerel PDFKit AES-128; bağımsız açma parolası, düzenleme parolası veya iki parola desteği. Yalnızca açma parolası varsa rastgele owner parolası üretilir; düzenleme parolası varsa owner tam izinlerini bu parola verir. Seçili moda göre kilit durumu, parolalar, reader/owner izinleri ve sayfa sayısı doğrulandıktan sonra yayımlanır. Hata durumunda şifrelenmemiş alternatif üretilmez. Uygulama içi önizleme parola girişini destekler |
 | Yer imleri | Otomatik kaynak dosya yer imleri, çok düzeyli içindekiler, sayfa numaraları, temel sayfa dönüşümü, düzenlenebilir metin ve JSON, yerel PDF hedef önizlemesi |
-| Arayüz uyumluluğu | `FreePic2Pdf.itf` ve `FreePic2Pdf_bkmk.txt`, UTF-8/UTF-16LE ve ilgili eski kodlamalar; içindekiler/ana metin için bölümlü sayfa numaraları, meta veri, aranabilir metin sayfaları ekleme ve yer imi görünüm ayarları |
+| Yer imi arayüz dosyaları | Genel ITF (`.itf`) ve `TXT` dosyaları, UTF-8/UTF-16LE ve ilgili eski kodlamalar; içindekiler/ana metin için bölümlü sayfa numaraları, meta veri, aranabilir metin sayfaları ekleme ve yer imi görünüm ayarları |
 | Kararlılık | Arka plan görevleri, görüntüleri sayfa sayfa serbest bırakma, ilerleme, iptal, günlük, geçici dosyalar ve atomik yayımlama, ad çakışmalarında otomatik numaralandırma, toplu işlem yarıda başarısız olursa tamamlanan sonuçları koruma ve listeleme |
 
-### Eski sürümden açık farklar
+JPEG XL için kayıplı, kayıpsız, saydam ve 16 bit gri tonlamalı durağan görüntülerin içe aktarılması, küçük resimleri, önizlemesi ve PDF’ye dönüştürülmesi desteklenir. Animasyonlu JXL’de yalnızca sistemin çözebildiği ilk kare garanti edilir; tüm karelerin tek tek içe aktarılması garanti edilmez. Doğrulanan ortamın ImageIO’su yalnızca ilk kareyi döndürür. Uygulama JXL kodlama çıktısı sunmaz; özgün JXL akışının, HDR veya yüksek bit derinliği bilgilerinin PDF’de değişmeden korunacağını taahhüt etmez.
 
-- OCR, MODI yerine Apple Vision kullanır; Office/Windows gerekmez. Eski grafik temizliği, CJK yazı tipi veya karakter/satır anahtarları devralınmamıştır.
-- Mevcut sıkıştırma seçenekleri kayıpsız ve JPEG’dir. JBIG2, CCITT G4 veya JPEG 2000 kodlayıcıları yeniden uygulanmamıştır. Temel işlevler çalışır; ancak büyük siyah-beyaz kitaplar özel JBIG2 araçlarına göre daha büyük olabilir.
-- Eski yazılımdaki OCR metnini gösterme/gizleme veya taranmış görüntüleri fiziksel olarak silme düzeltme araçları yoktur. Görüntü onarımı veya tam PDF içerik düzenleyicisi de sunulmaz.
+### Mevcut sınırlamalar
+
+- OCR, Apple Vision kullanır; Office/Windows gerekmez. Grafik temizliği, CJK yazı tipi ayarları veya karakter/satır bazında tanıma anahtarları sunulmaz.
+- Mevcut sıkıştırma seçenekleri kayıpsız ve JPEG’dir. JBIG2, CCITT G4 veya JPEG 2000 kodlayıcıları sunulmaz. Temel işlevler çalışır; ancak büyük siyah-beyaz kitaplar özel JBIG2 araçlarına göre daha büyük olabilir.
+- OCR metnini gösterme/gizleme veya taranmış görüntüleri fiziksel olarak silme düzeltme araçları yoktur. Görüntü onarımı veya tam PDF içerik düzenleyicisi de sunulmaz.
 - Uyumlu arayüzdeki `[Images]` çok katmanlı birleştirme ve `MinWidth` henüz uygulanmamıştır. Algılandığında açıklama gösterilir; uygulanmış gibi davranılmaz. Elle dosya sırası arayüzün mutlak sayfa numaralarıyla uyuşmuyorsa kullanıcı içindekiler hedeflerini kontrol etmelidir.
 - Normal yerel sayfa numaraları, bazı standart adlandırılmış eylemler ve URL hedefleri kullanılabilir. PDFKit’in güvenilir biçimde kaydedemediği dış PDF hedefleri ile çözümlenemeyen adlandırılmış/özel hedefler açıkça işaretlenir ve sessizce kaydetme engellenir. Düzenleyicide geçerli yerel sayfa numarasına dönüştürülebilirler. JSON/TXT hedef verisini koruyabilir. Şifreli PDF’lerde yer imi düzenleme desteklenmez.
 - Şifreleme yer imlerini, OCR metnini, meta veriyi, okuma düzenini ve normal bölümlü sayfa numaralarını korur. Yerel PDFKit sayfa etiketlerini korumaz; uygulama yalnızca metin öneki içermeyen etiketleri güvenli biçimde geri ekler. Özel metin önekli arayüz dosyaları şifreli dışa aktarmayı açıkça engeller; önekleri kaldırın veya şifrelemeyi kapatın.
-- “E-kitap sırası” yaygın önek gruplarını uygular: cov, bok, leg, fow, !, toc, sayısal ana metin, att, ins, bac; diğerleri sona konur. Eski yazılımın yayımlanmamış kurallarıyla birebir aynı olduğu iddia edilmez.
+- “E-kitap sırası” yaygın önek gruplarını uygular: cov, bok, leg, fow, !, toc, sayısal ana metin, att, ins, bac; diğerleri sona konur. Farklı adlandırma kurallarında sıralamayı kontrol edip gerektiğinde elle düzeltin.
 - İptal veya hata durumunda toplu işlemde tamamlanmış PDF’ler korunur; tamamlanmamış geçici PDF silinir. Kesildiği yerden devam etme sunulmaz.
 
 ## Geliştirme ve derleme
@@ -107,8 +109,8 @@ dist/                   Çalıştırılabilir .app ve dağıtım ZIP’leri (der
 
 ## Belge dilleri
 
-README ve doğrulama kaydı, arayüzle aynı 16 dilde sunulur; belgelerin üstündeki dil bağlantılarıyla geçiş yapılabilir. Özellik açıklamaları, parola sınırları, bilinen farklar ve derleme adımları tüm dillerde tutarlıdır. Test, derleme ve pencere görüntüsü günlükleri makine tarafından üretilen özgün kanıtlardır ve araç çıktısı değiştirilmez. İlgili açıklamalar doğrulama kaydında çok dilli olarak sunulur.
+README ve doğrulama kaydı, arayüzle aynı 16 dilde sunulur; belgelerin üstündeki dil bağlantılarıyla geçiş yapılabilir. Özellik açıklamaları, parola sınırları, mevcut sınırlamalar ve derleme adımları tüm dillerde tutarlıdır. Test, derleme ve pencere görüntüsü günlükleri makine tarafından üretilen özgün kanıtlardır ve araç çıktısı değiştirilmez. İlgili açıklamalar doğrulama kaydında çok dilli olarak sunulur.
 
 ## Teknik dayanaklar
 
-Apple’ın [Vision dil algılama arayüzü](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit belge özellikleri](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) ve [ImageIO JPEG kalite parametresi](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality) kullanılır. Uygulama ayrıca yerel SDK bildirimleri ve gerçek dosya testleriyle doğrulanmıştır. Özgün FreePic2Pdf programı, simgeleri veya eski arayüzü kopyalanmamıştır.
+Apple’ın [Vision dil algılama arayüzü](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/automaticallydetectslanguage), [PDFKit belge özellikleri](https://developer.apple.com/documentation/pdfkit/pdfdocument/documentattributes) ve [ImageIO JPEG kalite parametresi](https://developer.apple.com/documentation/imageio/kcgimagedestinationlossycompressionquality) kullanılır. Uygulama ayrıca yerel SDK bildirimleri ve gerçek dosya testleriyle doğrulanmıştır. FolioPDF, bağımsız bir SwiftUI arayüzünü Apple’ın yerel sistem framework’leriyle birleştirir.

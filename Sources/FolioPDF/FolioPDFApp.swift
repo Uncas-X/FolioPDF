@@ -134,7 +134,7 @@ final class FolioAppDelegate: NSObject, NSApplicationDelegate {
                 view.cacheDisplay(in: view.bounds, to: bitmap)
                 guard let data = bitmap.representation(using: .png, properties: [:]) else { throw NSError(domain: "FolioSmoke", code: 2) }
                 try data.write(to: URL(fileURLWithPath: args[index + 1]))
-                try "Rendered \(view.bounds), \(data.count) bytes; close protection: \(window.delegate is MainWindowCloseGuard); reopen verified: \(reopenStatus)".write(toFile: args[index + 1] + ".log", atomically: true, encoding: .utf8)
+                try "Rendered \(view.bounds), \(data.count) bytes; close protection: \(window.delegate is MainWindowCloseGuard); reopen verified: \(reopenStatus); imported images: \(self.model?.assets.count ?? 0); pages: \(self.model?.totalPages ?? 0); import warnings: \(self.model?.importWarnings.count ?? 0)".write(toFile: args[index + 1] + ".log", atomically: true, encoding: .utf8)
             } catch { try? error.localizedDescription.write(toFile: args[index + 1] + ".log", atomically: true, encoding: .utf8) }
             if args.contains("--quit-after-snapshot") { NSApp.terminate(nil) }
         }

@@ -1,4 +1,4 @@
-# FolioPDF 1.3 검증 기록
+# FolioPDF 1.4 검증 기록
 
 <!-- languages:start -->
 [简体中文](../VALIDATION.md) · [English](VALIDATION.en.md) · [繁體中文](VALIDATION.zh-Hant.md) · [日本語](VALIDATION.ja.md) · **한국어** · [Français](VALIDATION.fr.md) · [Deutsch](VALIDATION.de.md) · [Español](VALIDATION.es.md) · [Italiano](VALIDATION.it.md) · [Português (Brasil)](VALIDATION.pt-BR.md) · [Русский](VALIDATION.ru.md) · [العربية](VALIDATION.ar.md) · [हिन्दी](VALIDATION.hi.md) · [Türkçe](VALIDATION.tr.md) · [Nederlands](VALIDATION.nl.md) · [Polski](VALIDATION.pl.md)
@@ -6,23 +6,24 @@
 
 상태: **테스트 및 빌드 통과**. 기록 날짜: 2026-10-23. 검증 환경: Intel Mac, macOS 15.7.9, Swift 6.2.4 / Xcode. 최소 배포 버전은 macOS 14입니다.
 
-이번 버전에는 독립적인 열기 암호와 편집 암호를 추가했으며, 암호화 설정을 오른쪽 패널 안의 기본적으로 접힌 영역으로 바꾸고 제목 행 전체를 클릭할 수 있게 했습니다. 이번 전체 실행에서 XCTest 50개가 모두 통과했으며 실패 0개, 건너뜀 0개입니다. 로컬 네이티브 PDF 쓰기 인터페이스에서는 열기 암호가 17–31자일 때 owner 암호가 무효가 될 수 있음을 확인했습니다. 앱은 두 암호 모드의 길이 사전 검사로 이 문제를 피합니다. 관련 보안 경계는 아래에 설명되어 있습니다. 이번 로그는 `test-results.txt`에 있습니다.
+이번 버전은 macOS 14 이상의 네이티브 ImageIO를 통한 JPEG XL 입력과 독립적인 열기 암호 및 편집 암호를 지원합니다. 암호화 설정은 오른쪽 패널 안의 기본적으로 접힌 영역에 있으며 제목 행 전체를 클릭할 수 있습니다. 이번 전체 실행에서 XCTest 58개가 모두 통과했으며 실패 0개, 건너뜀 0개입니다. 로컬 네이티브 PDF 쓰기 인터페이스에서는 열기 암호가 17–31자일 때 owner 암호가 무효가 될 수 있음을 확인했습니다. 앱은 두 암호 모드의 길이 사전 검사로 이 문제를 피합니다. 관련 보안 경계는 아래에 설명되어 있습니다. 이번 로그는 `test-results.txt`에 있습니다.
 
 ## 제공 파일
 
 - `dist/FolioPDF.app`: 네이티브 AppKit 창, SwiftUI 인터페이스, 시스템 PDFKit / Vision / ImageIO를 사용합니다. 앱 파일명에 버전 번호를 넣지 않으며, 버전은 앱 메타데이터에 기록합니다.
-- `dist/FolioPDF-1.3-macOS.zip`: x86_64와 arm64가 포함된 범용 앱 패키지이며 `lipo -archs`로 확인했습니다.
-- `dist/FolioPDF-1.3-source.zip`: Xcode에서 열 수 있는 Swift Package 소스이며 테스트, 스크립트, 사용 설명, 인터페이스 스크린샷이 포함됩니다.
-- 패키징 스크립트는 로컬 ad-hoc 서명을 사용하며 `codesign --verify --deep --strict`를 통과했습니다. Developer ID 공증은 포함하지 않습니다. 내부 버전은 1.3(build 4)이며 앱 파일명은 여전히 `FolioPDF.app`입니다.
+- `dist/FolioPDF-1.4-macOS.zip`: x86_64와 arm64가 포함된 범용 앱 패키지이며 `lipo -archs`로 확인했습니다.
+- `dist/FolioPDF-1.4-source.zip`: Xcode에서 열 수 있는 Swift Package 소스이며 테스트, 스크립트, 사용 설명, 인터페이스 스크린샷이 포함됩니다.
+- 패키징 스크립트는 로컬 ad-hoc 서명을 사용하며 `codesign --verify --deep --strict`를 통과했습니다. Developer ID 공증은 포함하지 않습니다. 내부 버전은 1.4(build 5)이며 앱 파일명은 여전히 `FolioPDF.app`입니다.
 
 ## 기능 테스트
 
-`bash scripts/test.sh`를 실행했고 XCTest 50개가 모두 통과했습니다. 자세한 출력은 `test-results.txt`에 저장되어 있습니다. 실제 Vision OCR 테스트도 실행했으며 건너뛴 테스트는 없습니다.
+`bash scripts/test.sh`를 실행했고 XCTest 58개가 모두 통과했습니다. 자세한 출력은 `test-results.txt`에 저장되어 있습니다. 실제 Vision OCR 테스트도 실행했으며 건너뛴 테스트는 없습니다.
 
 | 범위 | 수 | 검증 내용 |
 |---|---:|---|
 | 자료 검색 및 정렬 | 3 | 숫자 정렬, 전자책 접두어, 하위 폴더와 최상위 폴더 제외, 중복 경로 |
 | PDF 변환 | 10 | 페이지 기하 계산과 잘못된 매개변수, EXIF 방향, 여러 페이지 TIFF/GIF, 메타데이터와 책갈피, 폴더별 묶기, 파일 덮어쓰기 방지, 일괄 작업의 부분 실패, 실제 JPEG 인코딩, 원본 JPEG 스트림 보존, Vision 숨겨진 텍스트와 검색 가능 여부, 취소 시 정리 |
+| JPEG XL 입력 | 8 | 네이티브 유형 및 확장자 매핑, 폴더 검색, 손실/무손실 RGB, RGBA 투명도, 16비트 회색조, 썸네일 및 미리보기, PDF 크기와 렌더링, 투명/흰 배경 출력, 시스템이 제공하는 프레임에 따른 애니메이션 출력, 손상되거나 누락된 파일 거부 |
 | 책갈피 및 인터페이스 파일 | 8 | 다단계 책갈피, BasePage 환산, 잘못된 대상, 표준 동작과 JSON, 외부 대상 명시적 거부, UTF-16 인터페이스와 구간별 페이지 번호, 복사본 저장, 검색 가능한 텍스트 페이지, 기존 페이지 레이블 보존 |
 | 현지화 | 3 | 16개 언어와 순서, 전체 리소스 로드, 18개 지역 언어 매핑, 알 수 없는 언어의 대체 처리, 수동 선택 우선순위, 아랍어에만 RTL 적용 |
 | 네이티브 PDF 암호화 | 14 | 실제 AESV2/128비트 사전, 열기만/편집만/두 암호, reader와 owner 권한 분리, 잘못된 암호로 권한 상승 방지, 서로 다른 암호 요구, 무작위 owner, 단일/이중 암호의 길이 경계, 너무 긴 열기 암호를 쓰기 전에 거부, 앞뒤 공백, 중국어 메타데이터, 책갈피, 숨겨진 텍스트, 일반적인 구간별 페이지 번호와 레이아웃, 텍스트 접두어 명시적 거부, 덮어쓰기 방지 및 실패 시 정리 |
@@ -61,23 +62,25 @@ OCR 테스트에서는 실제로 생성한 텍스트 이미지를 사용하여 �
 
 ## 검증 범위와 한계
 
-- 검증 컴퓨터는 Intel Mac입니다. 1.3 범용 패키지의 두 아키텍처 모두 컴파일에 성공했으나 실제 Apple Silicon 기기에서는 아직 테스트하지 않았습니다.
+- 검증 컴퓨터는 Intel Mac입니다. 1.4 범용 패키지의 두 아키텍처 모두 컴파일에 성공했으나 실제 Apple Silicon 기기에서는 아직 테스트하지 않았습니다.
 - 최소 배포 대상은 macOS 14이며, 이번 실제 실행 환경은 macOS 15.7.9입니다.
+- JPEG XL은 네이티브 ImageIO로 디코딩합니다. 자체 생성한 테스트 샘플 5개는 손실 RGB, 무손실 RGB, RGBA 투명도, 16비트 회색조와 애니메이션을 포함합니다. 현재 시스템은 애니메이션의 첫 프레임만 반환하므로 프레임별 가져오기는 보장하지 않습니다. 앱은 JXL 인코딩 출력을 제공하지 않으며 원본 비트스트림, HDR 또는 높은 비트 심도 정보가 PDF에 그대로 보존된다고 보장하지 않습니다.
 - 대규모 스캔 서적에 대한 성능 벤치마크는 수행하지 않았습니다. 모든 카메라 RAW 형식이나 모든 비표준 PDF 대상의 호환성을 보장하지 않습니다.
 - 암호화에는 Apple PDFKit을 사용하며 AESV2/128비트 출력을 요구하고, 선택한 모드에 따라 암호와 권한을 검증합니다. 로컬 네이티브 쓰기 인터페이스의 17–31자 열기 암호 문제는 owner 인증에 영향을 주므로, 두 암호 모드의 열기 암호는 일괄적으로 1–16자로 제한합니다. 편집 암호와 두 단일 암호 모드는 각각 1–32자를 지원합니다. 앱은 암호학적 결과를 직접 수정하지 않으며 Unicode, 제어 문자, 선택한 모드의 길이 범위를 벗어난 입력을 거부합니다. 경계 사전 검사, owner 권한, 앞뒤 공백 보존은 모두 실제 파일 테스트로 확인했습니다. 두 암호 모드에서 17, 31, 32자인 열기 암호는 쓰기 전에 거부됩니다.
 - 사용자 지정 텍스트 접두어가 있는 페이지 레이블은 현재 네이티브 경로로 안정적으로 보존할 수 없으므로 암호화를 켜면 명확한 오류를 표시합니다. 일반적인 알파벳/로마 숫자/숫자 구간별 페이지 번호, 읽기 레이아웃, 메타데이터는 왕복 테스트를 수행했습니다. 열기 암호가 필요한 파일은 앱 내 미리 보기에서 암호를 입력할 수 있으며 편집 암호만 있는 파일은 바로 미리 볼 수 있습니다. 암호화된 파일의 책갈피 편집은 여전히 지원하지 않습니다.
-- JBIG2/G4 인코딩, 기존 OCR 교정, 인터페이스 다중 레이어, 일부 특수 책갈피 대상 등 기존 프로그램과의 차이는 프로젝트 README의 “기존 버전과의 명확한 차이”를 참고하세요.
+- 지원하지 않는 JBIG2/G4 인코딩, OCR 교정 기능, 인터페이스 다중 레이어, 일부 특수 책갈피 대상 등 현재의 제한 사항은 프로젝트 README의 “현재 제한 사항”을 참고하세요.
 
 ## 이번 인터페이스 기록
 
 | 상태 | 실제 창 스크린샷 |
 |---|---|
+| 중국어, JPEG XL 정적 이미지 가져오기 | [jpeg-xl-import-zh.png](../screenshots/jpeg-xl-import-zh.png) |
 | 중국어, 암호화 기본 접힌 상태 | [encryption-collapsed-zh.png](../screenshots/encryption-collapsed-zh.png) |
 | 중국어, 두 암호 펼친 상태 | [encryption-inline-zh.png](../screenshots/encryption-inline-zh.png) |
 | 독일어, 어두운 모드, 두 암호 펼친 상태 | [encryption-inline-de-dark.png](../screenshots/encryption-inline-de-dark.png) |
 | 아랍어, RTL, 두 암호 펼친 상태 | [encryption-inline-ar.png](../screenshots/encryption-inline-ar.png) |
 | 최종 범용 앱, 중국어, 편집 암호만 사용 및 창을 닫은 뒤 다시 열기 | [encryption-editing-only-zh.png](../screenshots/encryption-editing-only-zh.png) |
 
-스크린샷은 앱 자체의 `NSView` 렌더링으로 얻었으며 다른 앱의 내용은 포함하지 않습니다. `build-results.txt`에는 두 아키텍처의 프로덕션 빌드가 기록되어 있고, [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.3.0)의 `SHA256SUMS-1.3.txt`에는 배포 ZIP의 체크섬이 있습니다. 이전 레이아웃 스크린샷은 `screenshots/previous-layout/`로 옮겼으며 이번 버전의 인터페이스 합격 근거로 사용하지 않습니다.
+스크린샷은 앱 자체의 `NSView` 렌더링으로 얻었으며 다른 앱의 내용은 포함하지 않습니다. `build-results.txt`에는 두 아키텍처의 프로덕션 빌드가 기록되어 있고, [Releases](https://github.com/Uncas-X/FolioPDF/releases/tag/v1.4.0)의 `SHA256SUMS-1.4.txt`에는 배포 ZIP의 체크섬이 있습니다. 이전 레이아웃 스크린샷은 `screenshots/previous-layout/`로 옮겼으며 이번 버전의 인터페이스 합격 근거로 사용하지 않습니다.
 
-원본 테스트, 빌드, 스크린샷 로그는 도구가 생성했습니다. 원본 출력을 유지하되 로컬 프로젝트 경로를 `<project>`로 바꿨으며, 번역한 로그를 원본 증거로 제시하지 않습니다. 이 설명의 16개 언어 버전은 모두 같은 테스트 결과, 환경, 한계를 설명합니다. 소스 버전에는 빌드 캐시와 배포 바이너리가 포함되지 않습니다. 배포 패키지는 비공개 저장소의 Releases에서 다운로드하세요.
+원본 테스트, 빌드, 스크린샷 로그는 도구가 생성했습니다. 원본 출력을 유지하되 로컬 프로젝트 경로를 `<project>`로 바꿨으며, 번역한 로그를 원본 증거로 제시하지 않습니다. 이 설명의 16개 언어 버전은 모두 같은 테스트 결과, 환경, 한계를 설명합니다. 소스 버전에는 빌드 캐시와 배포 바이너리가 포함되지 않습니다. 배포 패키지는 저장소의 Releases에서 다운로드하세요.
